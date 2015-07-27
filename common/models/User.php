@@ -1,47 +1,37 @@
 <?php
+
 namespace common\models;
 
 use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
-use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
  * @property integer $id
  * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
+ * @property string $password
+ * @property string $nama
  * @property string $email
- * @property string $auth_key
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property integer $level_id
+ * @property string $alamat
+ * @property string $login_terakhir
+ * @property string $logout_terakhir
+ *
+ * @property Keranjang[] $keranjangs
+ * @property Penjualan[] $penjualans
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
-
+    const STATUS_ACTIVE = 1;
+    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%user}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
+        return 'user';
     }
 
     /**
@@ -50,11 +40,50 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username', 'password', 'nama', 'email', 'status', 'login_terakhir', 'logout_terakhir'], 'required'],
+            [['status', 'level_id'], 'integer'],
+            [['login_terakhir', 'logout_terakhir'], 'safe'],
+            [['username', 'password', 'nama', 'email'], 'string', 'max' => 50],
+            [['alamat'], 'string', 'max' => 100],
+            [['username'], 'unique']
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'nama' => 'Nama',
+            'email' => 'Email',
+            'status' => 'Status',
+            'level_id' => 'Level ID',
+            'alamat' => 'Alamat',
+            'login_terakhir' => 'Login Terakhir',
+            'logout_terakhir' => 'Logout Terakhir',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKeranjangs()
+    {
+        return $this->hasMany(Keranjang::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPenjualans()
+    {
+        return $this->hasMany(Penjualan::className(), ['user_id' => 'id']);
+    }
+    
     /**
      * @inheritdoc
      */

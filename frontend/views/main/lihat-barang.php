@@ -1,0 +1,1 @@
+ini view barang, ID : <?php echo $id; ?>
