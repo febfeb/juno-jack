@@ -89,3 +89,53 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+/*Tambahan*/
+
+#menu-a {
+    height: 40px;
+    background: #c0392b;
+    color: white;
+    text-align: center;
+}
+
+#menu-a .menu-label {
+    height: 40px;
+    padding-top: 8px;
+    background: #e74c3c;
+}
+
+#menu-a .menu-button {
+    height: 40px;
+    display: block;
+    padding-top: 8px;
+    text-decoration: none;
+    color: #fff;
+    background: #c0392b;
+}
+#menu-a .menu-button:hover {
+    background: #e67e22;
+}
+
+
+
+#menu-b {
+    background: #34495e;
+    color: white;
+    padding: 10px 0px;
+}
+#menu-b .search-dropdown{
+    width: 35%;
+    float: left;
+}
+#menu-b .search-text{
+    width: 45%;
+    float: left;
+}
+#menu-b .search-button{
+    width: 18%;
+    float: left;
+}
+#menu-b .search-text-2{
+    float: left;
+}
