@@ -3,13 +3,13 @@
 namespace common\models;
 
 use Yii;
-
+use yii\web\IdentityInterface;
 /**
  * This is the model class for table "user".
  *
  * @property integer $id
  * @property string $username
- * @property string $password
+ * @property string $password_hash
  * @property string $nama
  * @property string $email
  * @property integer $status
@@ -40,10 +40,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'nama', 'email', 'status', 'login_terakhir', 'logout_terakhir'], 'required'],
+            [['username', 'password_hash', 'nama', 'email', 'status', 'login_terakhir', 'logout_terakhir'], 'required'],
             [['status', 'level_id'], 'integer'],
-            [['login_terakhir', 'logout_terakhir'], 'safe'],
-            [['username', 'password', 'nama', 'email'], 'string', 'max' => 50],
+            [['auth_key', 'login_terakhir', 'logout_terakhir'], 'safe'],
+            [['username', 'password_hash', 'nama', 'email'], 'string', 'max' => 50],
             [['alamat'], 'string', 'max' => 100],
             [['username'], 'unique']
         ];
@@ -57,7 +57,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'username' => 'Username',
-            'password' => 'Password',
+            'password_hash' => 'Password',
             'nama' => 'Nama',
             'email' => 'Email',
             'status' => 'Status',

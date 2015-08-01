@@ -42,10 +42,20 @@ class Kategori extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Kategori',
             'jumlah_barang' => 'Jumlah Barang',
             'parent_id' => 'Parent ID',
             'tingkat' => 'Tingkat',
         ];
+    }
+
+    public function getParent()
+    {
+        return $this->hasOne(Kategori::className(), ['id' => 'parent_id']);
+    }
+
+    public function getUrl()
+    {
+        return $this->hasOne(Url::className(), ['data_id' => 'id']);
     }
 }

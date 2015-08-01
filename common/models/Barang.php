@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "barang".
@@ -70,13 +71,21 @@ class Barang extends \yii\db\ActiveRecord
             'kategori_id' => 'Kategori ID',
             'overview_1' => 'Overview 1',
             'overview_2' => 'Overview 2',
+
+            'barangThumbnailsCount' => 'Thumbnails',
         ];
+    }
+
+
+    public function getKategori()
+    {
+        return $this->hasOne(Kategori::className(), ['id' => 'kategori_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWarna0()
+    public function getBarangWarna()
     {
         return $this->hasOne(Warna::className(), ['id' => 'warna']);
     }
@@ -95,6 +104,16 @@ class Barang extends \yii\db\ActiveRecord
     public function getBarangThumbnails()
     {
         return $this->hasMany(BarangThumbnail::className(), ['barang_id' => 'id']);
+    }
+
+    public function getBarangThumbnailsCount()
+    {
+        return count($this->barangThumbnails);
+    }
+
+    public function getBarangThumbnailsLink()
+    {
+        return count($this->barangThumbnails) . ' ' . Html::a('<span class="glyphicon glyphicon-picture"></span>', ['thumbnails/index', 'id' => $this->id]);
     }
 
     /**

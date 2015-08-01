@@ -1,49 +1,28 @@
 <?php
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = 'Sistem Informasi Pengarsipan Data Kegiatan Akademik';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+    <div class="jumbotrons">
+        <h1>Selamat Datang!</h1>
+        <p class="lead">Terima kasih telah mengunjungi Sistem Informasi Pengarsipan ini. Di bawah ini adalah beberapa tombol pintas untuk mengakses beberapa informasi penting.</p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div class="col-md-6">
+                <h2>Data Kegiatan</h2>
+                <p>Data Kegiatan adalah halaman yang menampilkan informasi daftar kegiatan yang dilakukan dosen yang ada di Politeknik Elektronika Negeri Surabaya.</p>
+                <p><?= Html::a('Selengkapnya &raquo;', ['kegiatan/index'], ['class' => 'btn btn-default']) ?></p>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-md-6">
+                <h2>Data Sertifikasi</h2>
+                <p>Data Sertifikasi adalah halaman yang menampilkan informasi daftar sertifikasi yang dilakukan dosen yang ada di Politeknik Elektronika Negeri Surabaya.</p>
+                <p><?= Html::a('Selengkapnya &raquo;', ['sertifikasi/index'], ['class' => 'btn btn-default']) ?></p>
             </div>
         </div>
 

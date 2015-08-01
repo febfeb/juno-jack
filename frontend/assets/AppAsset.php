@@ -19,7 +19,15 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'css/slider.css',
+        'css/yeti-bootstrap.min.css',
+        /*
+        * ===========================================================================
+        * PILIHAN TEMA:
+        * ===========================================================================
+        * cosmo, flatly, lumen, sandstone, simplex, spacelab, superhero, united, yeti
+        * recommended: cosmo & yeti
+        * ===========================================================================
+        */
     ];
     public $js = [
     ];

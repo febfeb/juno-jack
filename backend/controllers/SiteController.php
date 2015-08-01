@@ -32,12 +32,14 @@ class SiteController extends Controller
                     ],
                 ],
             ],
+            /*
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
             ],
+            */
         ];
     }
 
@@ -80,4 +82,6 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+
 }

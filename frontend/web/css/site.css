@@ -1,6 +1,193 @@
 html,
 body {
+    background-image: url("../images/background-pattern-2.png");
     height: 100%;
+    font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", "Sans-Serif";
+    color: #333;
+}
+
+
+/*============================================================
+    Navbar
+============================================================*/
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+ }
+ 
+
+.page-title {
+    background-image: url('../images/space.jpg');
+    background-size: cover;
+    display: block;
+    height: 140px;
+    top: 0px;
+    margin-bottom: 0px;
+}
+
+.panel-grey {
+    background-color: #ddd;
+    padding: 20px;
+    min-height: 600px;
+}
+
+.panel-test-tool {
+    margin-top: 15px;
+}
+
+
+/*============================================================
+    Panel test
+============================================================*/
+
+.panel-default {
+    border: #dd1111 solid 1px;
+}
+
+.panel-test {
+    border: none;
+}
+
+.panel-test .panel-heading{
+    border: none;
+    background-color: #fff;
+}
+
+.panel-test .panel-title{
+    font-size: 20px;
+    color: #4c83c3;
+}
+
+.panel-test .panel-footer{
+    color: white;
+}
+
+.panel-test .panel-image{
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    height: 100%;
+}
+
+.panel-test .panel-image img{
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.panel-test .test-apply {
+    position: absolute;
+    background: #4c83c3;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 90%;
+    width: 100%;
+    opacity: 0;
+    padding: 15px;
+
+    background: -webkit-linear-gradient(left, #4c83c3 20%, transparent);
+    background: -o-linear-gradient(right, #4c83c3 20%, transparent);
+    background: -moz-linear-gradient(right, #4c83c3 20%, transparent);
+    background: linear-gradient(to right, #4c83c3 20%, transparent);
+
+    color: white;
+}
+
+.panel-test .test-apply {
+    transition:opacity 1s;
+    -moz-transition:opacity 1s;
+    -webkit-transition:opacity 1s;
+}
+
+.panel-test:hover .test-apply {
+    opacity: 1;
+}
+
+.panel-image .test-back {
+    position: absolute;
+    height: 100px;
+    width: 100%;
+    opacity: 0;
+    padding: 15px;
+}
+
+.panel-image .test-back a {
+    color: white;
+    text-decoration: none;
+}
+
+.panel-image .test-back {
+    transition:opacity 1s;
+    -moz-transition:opacity 1s;
+    -webkit-transition:opacity 1s;
+}
+
+.panel-image:hover .test-back {
+    opacity: 1;
+}
+
+.test-button-sidebar {
+    background: #fff;
+    margin-right: -30px;
+    padding: 15px;
+
+    border: 1px solid #ddd;
+    border-right: none;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 0px 0px 5px;
+
+}
+
+.test-button-sidebar-active {
+    background: #ddd;
+    margin-right: -30px;
+    padding: 15px;
+
+    border: 1px solid #fff;
+    border-right: none;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+/*============================================================
+    Search PLT
+============================================================*/
+
+.search-box-wrap {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: relative;
+    line-height: 1;
+}
+
+.search-plt {
+    font-size: 14pt;
+    padding: 10px;
+    height: 46px;
+}
+
+.btn-search {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+    float: right;
+    box-sizing: border-box;
+    width: 7%;
+    text-align: center;
+    padding: 8px;
+}
+
+/*============================================================
+    Jumbotron and container
+============================================================*/
+
+.body-container {
+    background-color: #eee;
 }
 
 .wrap {
@@ -11,7 +198,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 0px 15px 20px;
 }
 
 .footer {
@@ -22,6 +209,7 @@ body {
 }
 
 .jumbotron {
+    margin-top: 20px;
     text-align: center;
     background-color: transparent;
 }
@@ -36,7 +224,11 @@ body {
     font-style: italic;
 }
 
-/* add sorting icons to gridview sort links */
+
+/*============================================================
+    Add sorting icons to gridview sort links
+============================================================*/
+
 a.asc:after, a.desc:after {
     position: relative;
     top: 1px;
@@ -90,52 +282,19 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-/*Tambahan*/
-
-#menu-a {
-    height: 40px;
-    background: #c0392b;
-    color: white;
-    text-align: center;
-}
-
-#menu-a .menu-label {
-    height: 40px;
-    padding-top: 8px;
-    background: #e74c3c;
-}
-
-#menu-a .menu-button {
-    height: 40px;
-    display: block;
-    padding-top: 8px;
-    text-decoration: none;
-    color: #fff;
-    background: #c0392b;
-}
-#menu-a .menu-button:hover {
-    background: #e67e22;
-}
 
 
+/*============================================================
+    Labels
+============================================================*/
 
-#menu-b {
-    background: #34495e;
-    color: white;
-    padding: 10px 0px;
+.label {
+    border-radius: 10px;
+    font-weight: normal;
+    font-size: 85%;
+    padding: 5px;
 }
-#menu-b .search-dropdown{
-    width: 35%;
-    float: left;
-}
-#menu-b .search-text{
-    width: 45%;
-    float: left;
-}
-#menu-b .search-button{
-    width: 18%;
-    float: left;
-}
-#menu-b .search-text-2{
-    float: left;
+
+.btn {
+    border-radius: 10px;
 }

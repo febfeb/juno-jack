@@ -1,4 +1,6 @@
 <?php
+use kartik\mpdf\Pdf;
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -13,6 +15,14 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'gii' => 'yii\gii\Module',
+        'pdf' => [
+            'class' => Pdf::classname(),
+            'format' => Pdf::FORMAT_A4,
+            'marginTop' => '10',
+            'marginBottom' => '10',
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,

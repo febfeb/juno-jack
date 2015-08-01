@@ -2,11 +2,19 @@
 namespace frontend\controllers;
 
 use Yii;
+
+use yii\data\ActiveDataProvider;
 use common\models\LoginForm;
+use frontend\models\Pengunjung;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use backend\models\Berita;
+use backend\models\Simpanan;
+use backend\models\Pinjaman;
+use backend\models\Pelanggan;
+
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -111,9 +119,9 @@ class SiteController extends Controller
         }
     }
 
-    public function actionAbout()
+    public function actionTentang()
     {
-        return $this->render('about');
+        return $this->render('tentang');
     }
 
     public function actionSignup()
@@ -168,4 +176,145 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public static function visitorCounter()
+    {
+        //menyimpan informasi dari user
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $query_string = $_SERVER['QUERY_STRING'];
+        $http_user_agent = $_SERVER['HTTP_USER_AGENT'];
+        if(isset($_SERVER['HTTP_REFERER']))
+            $http_referer = $_SERVER['HTTP_REFERER'];
+        else
+            $http_referer = '';
+
+        $is_bot = 0;
+        $botList = ["Teoma", "alexa", "froogle", "Gigabot", "inktomi",
+        "looksmart", "URL_Spider_SQL", "Firefly", "NationalDirectory",
+        "Ask Jeeves", "TECNOSEEK", "InfoSeek", "WebFindBot", "girafabot",
+        "crawler", "www.galaxy.com", "Googlebot", "Scooter", "Slurp",
+        "msnbot", "appie", "FAST", "WebBug", "Spade", "ZyBorg", "rabaz",
+        "Baiduspider", "Feedfetcher-Google", "TechnoratiSnoop", "Rankivabot",
+        "Mediapartners-Google", "Sogou web spider", "WebAlta Crawler","TweetmemeBot",
+        "Butterfly","Twitturls","Me.dium","Twiceler"];
+        foreach($botList as $bot)
+        {
+            if(strpos($_SERVER['HTTP_USER_AGENT'], $bot) !== 0){
+                $is_bot = 1;
+                break;
+            }
+        }
+
+        $pengunjung = new Pengunjung;
+        $pengunjung->tanggal = date('Y-m-d H:i:s');
+        $pengunjung->nomor_ip = $ip;
+        $pengunjung->query_string = $query_string;
+        $pengunjung->http_referrer = $http_referer;
+        $pengunjung->http_user_agent = $http_user_agent;
+        $pengunjung->is_bot = $is_bot;
+        $pengunjung->save();
+    }
+
+ 
+    /**
+    * Halaman statis di frontend
+    */
+
+    public function actionProfilVisi()
+    {
+        return $this->render('profil-visi');
+    }
+
+    public function actionProfilStruktur()
+    {
+        return $this->render('profil-struktur');
+    }
+
+    public function actionProfilKemitraan()
+    {
+        return $this->render('profil-kemitraan');
+    }
+
+    public function actionProfilKomitmen()
+    {
+        return $this->render('profil-komitmen');
+    }
+
+    public function actionGaleri()
+    {
+        return $this->render('galeri');
+    }
+
+    public function actionKontak()
+    {
+        return $this->render('kontak');
+    }
+
+    public function actionProdukSimpanan()
+    {
+        $simpanan = Simpanan::find()->all();
+        return $this->render('produk-simpanan', [
+            'model' => $simpanan,
+        ]);
+    }
+
+    public function actionProdukPinjaman()
+    {
+        $pinjaman = Pinjaman::find()->all();
+        return $this->render('produk-pinjaman', [
+            'model' => $pinjaman,
+        ]);
+    }
+
+    public function actionBerita()
+    {
+        return $this->render('produk-pinjaman');
+    }
+
+    public function actionPelangganAnggota()
+    {
+        $anggota = Pelanggan::find()->where(['tipe_pelanggan_id' => '1'])->all();
+        return $this->render('pelanggan-anggota', [
+            'model' => $anggota,
+        ]);
+    }
+
+    public function actionPrintPelangganAnggota() {
+        $query = Pelanggan::find()->where(['tipe_pelanggan_id' => '1'])->orderBy('nama');
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $content = $this->renderPartial('print-pelanggan-anggota', ['dataProvider' => $dataProvider]);
+        $pdf = Yii::$app->pdf;
+        $mpdf = $pdf->api;
+        $mpdf->format = 'A4';
+        $mpdf->SetHeader('Koperasi Ponorogo || Dicetak tanggal ' . date("d M Y"));
+        $mpdf->WriteHtml($content);
+        return $mpdf->Output('daftar_anggota_koperasi.pdf', 'I');
+    }
+
+    public function actionPelangganNasabah()
+    {
+        $nasabah = Pelanggan::find()->where(['tipe_pelanggan_id' => '2'])->all();
+        return $this->render('pelanggan-nasabah', [
+            'model' => $nasabah,
+        ]);
+    }
+
+    public function actionPrintPelangganNasabah() {
+        $query = Pelanggan::find()->where(['tipe_pelanggan_id' => '2'])->orderBy('nama');
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $content = $this->renderPartial('print-pelanggan-nasabah', ['dataProvider' => $dataProvider]);
+        $pdf = Yii::$app->pdf;
+        $mpdf = $pdf->api;
+        $mpdf->format = 'A4';
+        $mpdf->SetHeader('Koperasi Ponorogo || Dicetak tanggal ' . date("d M Y"));
+        $mpdf->WriteHtml($content);
+        return $mpdf->Output('daftar_nasabah_koperasi.pdf', 'I');
+    }
+
 }
