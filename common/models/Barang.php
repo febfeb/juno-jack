@@ -73,7 +73,7 @@ class Barang extends ActiveRecord
             'overview_1' => 'Overview 1',
             'overview_2' => 'Overview 2',
 
-            'barangThumbnailsCount' => 'Thumbnails',
+            'barangThumbnailsLink' => 'Thumbnails',
         ];
     }
 
@@ -114,7 +114,7 @@ class Barang extends ActiveRecord
 
     public function getBarangThumbnailsLink()
     {
-        return count($this->barangThumbnails) . ' ' . Html::a('<span class="glyphicon glyphicon-picture"></span>', ['thumbnails/index', 'id' => $this->id]);
+        return count($this->barangThumbnails) . ' ' . Html::a('<span class="glyphicon glyphicon-picture"></span>', ['barang-thumbnails/index', 'id' => $this->id]);
     }
 
     /**

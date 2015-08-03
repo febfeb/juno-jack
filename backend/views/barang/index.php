@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$this->title = 'Data Barang';
+$this->title = 'Barang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <br>

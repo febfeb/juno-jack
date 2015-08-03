@@ -15,7 +15,7 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
-        'gii' => 'yii\gii\Module',
+        //'gii' => 'yii\gii\Module',
         'pdf' => [
             'class' => Pdf::classname(),
             'format' => Pdf::FORMAT_A4,
