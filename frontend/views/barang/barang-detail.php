@@ -37,7 +37,6 @@ Overview 2: <?= $barang->overview_2 ?><br>
 */
 
 $reviews = [];
-
 ?>
 
 <div class="information-blocks">
@@ -46,23 +45,23 @@ $reviews = [];
             <div class="product-preview-box">
                 <div class="swiper-container product-preview-swiper" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="1">
                     <div class="swiper-wrapper">
-                        <?php $link = Url2::to(["images/barang/mac.jpg"]) ?>
-                        <div class="swiper-slide">
-                            <div class="product-zoom-image">
-                                <img src="<?php echo $link ?>" alt="" data-zoom="<?php echo $link ?>" />
+                        <?php
+                        foreach ($thumbnails as $thumbnail) {
+                            echo '
+                            <div class="swiper-slide">
+                                <div class="product-zoom-image">
+                                    <img src="'.\Yii::getAlias('@backend_url').'/'.$thumbnail->url.'" alt="" data-zoom="'.\Yii::getAlias('@backend_url').'/'.$thumbnail->url.'" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-zoom-image">
-                                <img src="<?php echo $link ?>" alt="" data-zoom="<?php echo $link ?>" />
-                            </div>
-                        </div>
+                            ';
+                        }
+                        ?>
                     </div>
                     <div class="pagination"></div>
                     <div class="product-zoom-container">
                         <div class="move-box">
-                            <img class="default-image" src="<?php echo $link ?>" alt="" />
-                            <img class="zoomed-image" src="<?php echo $link ?>" alt="" />
+                            <img class="default-image" src="" alt="" />
+                            <img class="zoomed-image" src="" alt="" />
                         </div>
                         <div class="zoom-area"></div>
                     </div>
@@ -70,26 +69,23 @@ $reviews = [];
                 <div class="swiper-hidden-edges">
                     <div class="swiper-container product-thumbnails-swiper" data-autoplay="0" data-loop="0" data-speed="500" data-center="0" data-slides-per-view="responsive" data-xs-slides="3" data-int-slides="3" data-sm-slides="3" data-md-slides="4" data-lg-slides="4" data-add-slides="4">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide selected">
-                                <div class="paddings-container">
-                                    <img src="<?php echo $link ?>" alt="" />
+                            <?php
+                            $nomor = 1;
+                            foreach ($thumbnails as $thumbnail) {
+                                if ($nomor == 1) {
+                                    $selected = 'selected';
+                                } else {
+                                    $selected = '';
+                                }
+                                echo '
+                                <div class="swiper-slide '.$selected.'">
+                                    <div class="paddings-container">
+                                        <img src="'.\Yii::getAlias('@backend_url').'/'.$thumbnail->url.'" alt="" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="paddings-container">
-                                    <img src="<?php echo $link ?>" alt="" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="paddings-container">
-                                    <img src="<?php echo $link ?>" alt="" />
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="paddings-container">
-                                    <img src="<?php echo $link ?>" alt="" />
-                                </div>
-                            </div>
+                                ';
+                            }
+                            ?>
                         </div>
                         <div class="pagination"></div>
                     </div>

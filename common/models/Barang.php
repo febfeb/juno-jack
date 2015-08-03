@@ -146,13 +146,23 @@ class Barang extends ActiveRecord
      */
     public function getThumbnailUtama()
     {
-        return \yii\helpers\Url::to(["images/barang/mac.jpg"]);
+        $thumbnail = BarangThumbnail::find()->where(['barang_id' => $this->id])->one();
+        if (count($thumbnail) > 0) {
+            return \Yii::getAlias('@backend_url').'/'.$thumbnail->url;
+        } else {
+            return \yii\helpers\Url::to(['images/barang/mac.jpg']);
+        }
     }
     /**
      * Mendapatkan thumbnail kedua dari detail tabel thumbnail
      */
     public function getThumbnailAlternatif()
     {
-        return \yii\helpers\Url::to(["images/barang/mac.jpg"]);
+        $thumbnail = BarangThumbnail::find()->where(['barang_id' => $this->id])->one();
+        if (count($thumbnail) > 0) {
+            return \Yii::getAlias('@backend_url').'/'.$thumbnail->url;
+        } else {
+            return \yii\helpers\Url::to(['images/barang/mac.jpg']);
+        }
     }
 }

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Kegiatan */
 
 $this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Kegiatan Dosen', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Barang', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <br>
@@ -30,21 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'id',
-                'dosen.nama',
-                'jenisKegiatan.nama',
                 'nama',
-                'semester',
-                'tahun_ajaran',
-                'waktu_mulai',
-                'waktu_selesai',
-                'tempat',
-                'bidang_kegiatan',
-                'anggota',
-                ['attribute' => 'skLink', 'format' => 'raw'],
-                'narasumber',
-                'sumber_anggaran',
-                ['attribute' => 'fileLaporanLink', 'format' => 'raw'],
-                'statusString',
+                'kode',
+                'warna',
+                'review',
+                'kelompok',
+                'harga_beli',
+                'harga_normal',
+                'harga_promo',
+                'kategori.nama',
+                'overview_1',
+                'overview_2',
+                
             ],
         ]) ?>
     </div>

@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Barang;
+use common\models\BarangThumbnail;
 use common\models\Kategori;
 
 class BarangController extends \yii\web\Controller
@@ -46,8 +47,10 @@ class BarangController extends \yii\web\Controller
     public function actionDetail($id)
     {
         $barang = Barang::findOne($id);
+        $thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
     	return $this->render('barang-detail', [
-            'barang' => $barang
+            'barang' => $barang,
+            'thumbnails' => $thumbnails,
         ]);
     }
 }
