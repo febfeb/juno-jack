@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/feb/HTDocs/juno-jack/backend/controllers/SiteController.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/backend/config/main.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/backend/config/main-local.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/common/config/main.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/common/config/main-local.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/views/site/index.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/views/layouts/main.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/assets/AppAsset.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/views/layouts/main_2.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/views/site/error.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/common/models/Pengaturan.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/web/theme/shop.html</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/views/barang/barang-kategori.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/common/models/Barang.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/frontend/views/barang/barang-detail.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/common/components/Rating.php</file>
+            <file>file:/Users/feb/HTDocs/juno-jack/common/models/Kategori.php</file>
+        </group>
+    </open-files>
+</project-private>
