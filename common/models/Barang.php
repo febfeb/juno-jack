@@ -2,7 +2,8 @@
 
 namespace common\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\Html;
 
 /**
@@ -28,7 +29,7 @@ use yii\helpers\Html;
  * @property Pembelian[] $pembelians
  * @property Penjualan[] $penjualans
  */
-class Barang extends \yii\db\ActiveRecord
+class Barang extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -83,7 +84,7 @@ class Barang extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBarangWarna()
     {
@@ -91,7 +92,7 @@ class Barang extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBarangStoks()
     {
@@ -99,7 +100,7 @@ class Barang extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBarangThumbnails()
     {
@@ -117,7 +118,7 @@ class Barang extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getKeranjangDetails()
     {
@@ -125,7 +126,7 @@ class Barang extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPembelians()
     {
@@ -133,10 +134,25 @@ class Barang extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPenjualans()
     {
         return $this->hasMany(Penjualan::className(), ['barang_id' => 'id']);
+    }
+    
+    /**
+     * Mendapatkan thumbnail pertama dari detail tabel thumbnail
+     */
+    public function getThumbnailUtama()
+    {
+        return \yii\helpers\Url::to(["images/barang/mac.jpg"]);
+    }
+    /**
+     * Mendapatkan thumbnail kedua dari detail tabel thumbnail
+     */
+    public function getThumbnailAlternatif()
+    {
+        return \yii\helpers\Url::to(["images/barang/mac.jpg"]);
     }
 }

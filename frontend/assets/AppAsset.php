@@ -18,18 +18,17 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
-        'css/yeti-bootstrap.min.css',
-        /*
-        * ===========================================================================
-        * PILIHAN TEMA:
-        * ===========================================================================
-        * cosmo, flatly, lumen, sandstone, simplex, spacelab, superhero, united, yeti
-        * recommended: cosmo & yeti
-        * ===========================================================================
-        */
+        'theme/css/bootstrap.min.css',
+        'theme/css/idangerous.swiper.css',
+        'theme/css/font-awesome.min.css',
+        'theme/css/style.css',
     ];
     public $js = [
+        'theme/js/jquery-2.1.3.min.js',
+        'theme/js/idangerous.swiper.min.js',
+        'theme/js/global.js',
+        'theme/js/jquery.mousewheel.js',
+        'theme/js/jquery.jscrollpane.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

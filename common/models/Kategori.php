@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $nama
+ * @property string $gambar
  * @property integer $jumlah_barang
  * @property integer $parent_id
  * @property integer $tingkat
@@ -29,9 +30,10 @@ class Kategori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama'], 'required'],
+            [['nama', 'gambar'], 'required'],
             [['jumlah_barang', 'parent_id', 'tingkat'], 'integer'],
-            [['nama'], 'string', 'max' => 100]
+            [['nama'], 'string', 'max' => 100],
+            [['gambar'], 'string', 'max' => 50]
         ];
     }
 
@@ -43,19 +45,19 @@ class Kategori extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nama' => 'Kategori',
+            'gambar' => 'Gambar',
             'jumlah_barang' => 'Jumlah Barang',
             'parent_id' => 'Parent ID',
             'tingkat' => 'Tingkat',
         ];
     }
-
-    public function getParent()
-    {
+    
+    public function getParent() {
         return $this->hasOne(Kategori::className(), ['id' => 'parent_id']);
     }
 
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->hasOne(Url::className(), ['data_id' => 'id']);
     }
+
 }
