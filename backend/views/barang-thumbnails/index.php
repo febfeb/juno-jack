@@ -26,8 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::img('uploads/thumbnails/'.$thumbnail->url) ?>
                     <div class="caption">
                         <p>
-                        <?= Html::a('Hapus', ['delete', 'id' => $thumbnail->id], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => 'Are you sure?']) ?>
-                        <!--<a href="#" class="btn btn-danger btn-xs" role="button">Hapus</a>-->
+                        <?= Html::a('Hapus', ['barang-thumbnails/delete', 'id' => $thumbnail->id], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => 'Are you sure?']) ?>
                         </p>
                     </div>
                 </div>

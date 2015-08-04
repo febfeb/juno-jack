@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "kategori".
@@ -31,7 +32,7 @@ class Kategori extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'gambar'], 'required'],
-            [['jumlah_barang', 'parent_id', 'tingkat'], 'integer'],
+            [['id', 'jumlah_barang', 'parent_id', 'tingkat'], 'integer'],
             [['nama'], 'string', 'max' => 100],
             [['gambar'], 'string', 'max' => 50]
         ];
@@ -49,6 +50,7 @@ class Kategori extends \yii\db\ActiveRecord
             'jumlah_barang' => 'Jumlah Barang',
             'parent_id' => 'Parent ID',
             'tingkat' => 'Tingkat',
+
         ];
     }
     
@@ -56,8 +58,24 @@ class Kategori extends \yii\db\ActiveRecord
         return $this->hasOne(Kategori::className(), ['id' => 'parent_id']);
     }
 
+    public function getParentString() {
+        return ($this->parent_id==0?'INDUK':$this->parent->nama);
+    }
+
     public function getUrl() {
         return $this->hasOne(Url::className(), ['data_id' => 'id']);
     }
+
+    public function getKategoriList()
+    {
+        $droptions = Kategori::find()->where(['not in', 'parent_id', '0'])->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'nama');
+    }  
+
+    public function getParentList()
+    {
+        $droptions = Kategori::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'nama');
+    } 
 
 }

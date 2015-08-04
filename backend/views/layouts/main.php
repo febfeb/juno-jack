@@ -46,8 +46,8 @@ AppAsset::register($this);
                                 'items' => [
                                     ['label' => 'Barang', 'url' => ['barang/index']],
                                     ['label' => '', 'options' => ['class' => 'divider']],
-                                    ['label' => 'Kategori', 'url' => ['kegiatan/index']],
-                                    ['label' => 'Merk', 'url' => ['sertifikasi/index']],
+                                    ['label' => 'Kategori', 'url' => ['kategori/index']],
+                                    ['label' => 'Merk', 'url' => ['merk/index']],
                                     ['label' => 'Toko', 'url' => ['sertifikasi/index']],
                                     ['label' => 'Warna', 'url' => ['sertifikasi/index']],
                                 ]

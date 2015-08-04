@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Barang;
+use common\models\BarangThumbnail;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -50,8 +51,13 @@ class BarangController extends Controller
      */
     public function actionView($id)
     {
+        $barang = Barang::findOne($id);
+        $thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'barang' => $barang,
+            'thumbnails' => $thumbnails,
         ]);
     }
 

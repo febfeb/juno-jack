@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "warna".
@@ -54,4 +55,10 @@ class Warna extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Barang::className(), ['warna' => 'id']);
     }
+
+    public function getWarnaList()
+    {
+        $droptions = Warna::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'nama');
+    }    
 }

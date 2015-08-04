@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 
 $this->title = 'Tambah Barang';
-$this->params['breadcrumbs'][] = ['label' => 'Kegiatan', 'url' => ['kegiatan/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Barang', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <br>

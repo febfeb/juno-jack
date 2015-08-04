@@ -2,12 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap\Alert;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Kegiatan */
 
 $this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Barang', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Merk', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <br>
@@ -33,37 +34,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         'nama',
-                        'kode',
-                        'warna',
-                        'review',
-                        'kelompok',
-                        'harga_beli',
-                        'harga_normal',
-                        'harga_promo',
-                        'kategori.nama',
-                        'overview_1',
-                        'overview_2',
+                        
+                        
                         
                     ],
                 ]) ?>                
             </div>
             <div class="col-md-3">
                 <?php
-                if (count($thumbnails) == 0) {
-                    echo '<div class="col-md-12"><div class="alert alert-danger" role="alert">Tidak ada gambar</div></div>';
+                if ($model->gambar == '') {
+                    echo '<div class="alert alert-danger">Tidak ada gambar</div>';
                 } else {
-                    foreach($thumbnails as $thumbnail){
-                ?>
+                    echo '
                     <div class="thumbnail">
-                        <?= Html::img('uploads/thumbnails/'.$thumbnail->url) ?>
-                        <div class="caption">
-                            <p>
-                            <?= Html::a('Hapus', ['barang-thumbnails/delete', 'id' => $thumbnail->id], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => 'Are you sure?']) ?>
-                            <!--<a href="#" class="btn btn-danger btn-xs" role="button">Hapus</a>-->
-                            </p>
-                        </div>
+                        '. Html::img('uploads/merk/'.$model->gambar).'
                     </div>
-                <?php }} ?>
+                    ';
+                }
+                ?>
             </div>
         </div>
     </div>
