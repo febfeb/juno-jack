@@ -12,23 +12,20 @@ class BarangController extends \yii\web\Controller
     {
         $barangs = [];
 
-        // Hirarki sampai 4 level
+        // Hirarki sub kategori sampai 6 level
         $kategori = Kategori::findOne($id);
         $core_kategori = Kategori::findOne($id);
         foreach (Barang::find()->where(['kategori_id' => $id])->all() as $barang) {
             $barangs[] = $barang;
         }
-        foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) {
-            foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) {
-                $barangs[] = $barang;
-            }
-            foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) {
-                foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) {
-                    $barangs[] = $barang;
-                }
-                foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) {
-                    foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) {
-                        $barangs[] = $barang;
+        foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) { foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) { $barangs[] = $barang; }
+            foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) { foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) { $barangs[] = $barang; }
+                foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) { foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) { $barangs[] = $barang; }
+                    foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) { foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) { $barangs[] = $barang; }
+                        foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) { foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) { $barangs[] = $barang; }
+                            foreach (Kategori::find()->where(['parent_id' => $kategori->id])->all() as $kategori) { foreach (Barang::find()->where(['kategori_id' => $kategori->id])->all() as $barang) { $barangs[] = $barang; }
+                            }                            
+                        }                        
                     }
                 }
             }
@@ -36,7 +33,6 @@ class BarangController extends \yii\web\Controller
         
         $sub_kategori = Kategori::find()->where(['parent_id' => $id])->all();
 
-    	//$barangs = Barang::find()->where(['kategori_id' => $id])->all();
     	return $this->render('barang-kategori', [
             'kategori' => $core_kategori,
             'sub_kategori' => $sub_kategori,

@@ -50,7 +50,7 @@ $reviews = [];
                             echo '
                             <div class="swiper-slide">
                                 <div class="product-zoom-image">
-                                    <img src="'.\Yii::getAlias('@backend_url').'/'.$thumbnail->url.'" alt="" data-zoom="'.\Yii::getAlias('@backend_url').'/'.$thumbnail->url.'" />
+                                    <img src="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" alt="" data-zoom="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" />
                                 </div>
                             </div>
                             ';
@@ -80,7 +80,7 @@ $reviews = [];
                                 echo '
                                 <div class="swiper-slide '.$selected.'">
                                     <div class="paddings-container">
-                                        <img src="'.\Yii::getAlias('@backend_url').'/'.$thumbnail->url.'" alt="" />
+                                        <img src="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" alt="" />
                                     </div>
                                 </div>
                                 ';

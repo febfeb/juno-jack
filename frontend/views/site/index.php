@@ -33,7 +33,7 @@ $this->title = 'Vision Fokus » Beranda';
                 ?>
                 <div class="entry">
                     <a href="<?php echo \yii\helpers\Url::to(["/".$url->url]) ?>">
-                        <?php echo Html::img(["uploads/merk/".$merk->gambar]); ?>
+                        <img src="<?= \Yii::getAlias('@backend_url').'/merk/'.$merk->gambar ?>" />
                     </a>
                 </div>
                 <?php

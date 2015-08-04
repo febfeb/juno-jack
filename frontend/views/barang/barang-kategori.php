@@ -121,6 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="col-md-3 col-md-pull-9 col-sm-4 col-sm-pull-8 blog-sidebar">
+            <!--
             <div class="information-blocks categories-border-wrapper">
                 <div class="block-title size-3">Categories</div>
                 <div class="accordeon">
@@ -136,6 +137,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </div>
+            -->
+            <div class="information-blocks"><br><br><br>
+                <div class="block-title size-2">Categories</div>
+                <div class="sidebar-navigation">
+                    <div class="title">Sub Kategori <i class="fa fa-angle-down"></i></div>
+                    <div class="list">
+                        <?php
+                        foreach ($sub_kategori as $sub) {
+                            echo Html::a('<span><i class="fa fa-angle-right"></i> '.$sub->nama.'</span>', ['/'.$sub->url->url], ['class' => 'entry']);
+                        }
+                        ?>                    
                     </div>
                 </div>
             </div>

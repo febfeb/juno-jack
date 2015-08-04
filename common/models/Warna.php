@@ -60,5 +60,9 @@ class Warna extends \yii\db\ActiveRecord
     {
         $droptions = Warna::find()->asArray()->all();
         return ArrayHelper::map($droptions, 'id', 'nama');
-    }    
+    }
+
+    public function getTampilanWarna() {
+        return '<div style="background: #'.$this->rgb.'; width: 100%; height: 25px;"></div>';
+    }
 }

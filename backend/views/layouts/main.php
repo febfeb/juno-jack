@@ -48,8 +48,8 @@ AppAsset::register($this);
                                     ['label' => '', 'options' => ['class' => 'divider']],
                                     ['label' => 'Kategori', 'url' => ['kategori/index']],
                                     ['label' => 'Merk', 'url' => ['merk/index']],
-                                    ['label' => 'Toko', 'url' => ['sertifikasi/index']],
-                                    ['label' => 'Warna', 'url' => ['sertifikasi/index']],
+                                    ['label' => 'Toko', 'url' => ['toko/index']],
+                                    ['label' => 'Warna', 'url' => ['warna/index']],
                                 ]
                             ],
                             ['label' => '<span class="glyphicon glyphicon-log-in"></span> Pembelian',

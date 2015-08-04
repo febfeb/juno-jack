@@ -148,7 +148,7 @@ class Barang extends ActiveRecord
     {
         $thumbnail = BarangThumbnail::find()->where(['barang_id' => $this->id])->one();
         if (count($thumbnail) > 0) {
-            return \Yii::getAlias('@backend_url').'/'.$thumbnail->url;
+            return \Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url;
         } else {
             return \yii\helpers\Url::to(['images/barang/mac.jpg']);
         }
@@ -160,7 +160,7 @@ class Barang extends ActiveRecord
     {
         $thumbnail = BarangThumbnail::find()->where(['barang_id' => $this->id])->one();
         if (count($thumbnail) > 0) {
-            return \Yii::getAlias('@backend_url').'/'.$thumbnail->url;
+            return \Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url;
         } else {
             return \yii\helpers\Url::to(['images/barang/mac.jpg']);
         }
