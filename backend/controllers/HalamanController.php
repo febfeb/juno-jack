@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**
- * HalamanController implements the CRUD actions for Halaman model.
+ * HalamanController implements the CRUD actions for Halaman model. mafcode
  */
 class HalamanController extends Controller
 {
