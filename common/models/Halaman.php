@@ -26,6 +26,7 @@ class Halaman extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
+     * cek perubahan
      */
     public function rules()
     {
