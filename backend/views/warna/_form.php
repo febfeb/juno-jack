@@ -2,10 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use backend\models\JenisKegiatan;
-use kartik\file\FileInput;
-use kartik\widgets\DateTimePicker;
-
+use kartik\color\ColorInput;
 use common\models\Warna;
 use common\models\Toko;
 
@@ -22,17 +19,8 @@ use common\models\Toko;
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => 100]) ?>
 
-    <?= $form->field($model, 'alamat')->textInput(['maxlength' => 100]) ?>
+    <?= $form->field($model, 'rgb')->widget(ColorInput::classname(), ['options' => ['placeholder' => 'Pilih warna']]) ?>
 
-    <?= $form->field($model, 'telepon')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'latitude')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'longitude')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'keterangan_buka')->textArea() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -5,6 +5,8 @@ namespace backend\controllers;
 use Yii;
 use common\models\Barang;
 use common\models\BarangThumbnail;
+use common\models\Url;
+use common\components\Slug;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -71,6 +73,13 @@ class BarangController extends Controller
         $model = new Barang();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // insert slug to url
+            $url = new Url();
+            $url->jenis = 'b';
+            $url->data_id = $model->id;
+            $url->url = Slug::slugify($model->nama);
+            $url->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -90,6 +99,11 @@ class BarangController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // update slug from url
+            $url = Url::find()->where(['jenis' => 'b'])->andWhere(['data_id' => $model->id])->one();
+            $url->url = Slug::slugify($model->nama);
+            $url->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -107,6 +121,10 @@ class BarangController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        // delete slug from url
+        $url = Url::find()->where(['jenis' => 'k'])->andWhere(['data_id' => $model->id])->one();
+        $url->delete;
 
         return $this->redirect(['index']);
     }

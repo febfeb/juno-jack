@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Kategori;
+use common\models\Url;
+use common\components\Slug;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -73,10 +75,19 @@ class KategoriController extends Controller
             }
 
             if ($model->save()) {
+                // insert slug to url
+                $url = new Url();
+                $url->jenis = 'k';
+                $url->data_id = $model->id;
+                $url->url = Slug::slugify($model->nama);
+                $url->save();
+
                 Yii::$app->session->setFlash('success', 'Kategori berhasil disimpan');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                Yii::$app->session->setFlash('danger', 'Kategori gagal disimpan. '.var_dump($model->getErrors()));
+                unlink('uploads/kategori/'.$model->gambar);
+
+                Yii::$app->session->setFlash('danger', 'Kategori gagal disimpan. '.var_dump($model->errors));
                 return $this->redirect(['index', 'id' => $model->id]);
             }
 
@@ -110,9 +121,16 @@ class KategoriController extends Controller
             }
 
             if ($model->save()) {
+                // update slug from url
+                $url = Url::find()->where(['jenis' => 'k'])->andWhere(['data_id' => $model->id])->one();
+                $url->url = Slug::slugify($model->nama);
+                $url->save();
+
                 Yii::$app->session->setFlash('success', 'Kategori berhasil diupdate');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
+                unlink('uploads/kategori/'.$model->gambar);
+                
                 Yii::$app->session->setFlash('danger', 'Kategori gagal diupdate. '.var_dump($model->getErrors()));
                 return $this->redirect(['index']);
             }
@@ -135,6 +153,10 @@ class KategoriController extends Controller
         unlink('uploads/kategori/'.$kategori->gambar);
 
         $this->findModel($id)->delete();
+
+        // delete slug from url
+        $url = Url::find()->where(['jenis' => 'k'])->andWhere(['data_id' => $id])->one();
+        $url->delete;
 
         return $this->redirect(['index']);
     }

@@ -28,7 +28,8 @@ class Merk extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'gambar'], 'required'],
-            [['nama', 'gambar'], 'string', 'max' => 50]
+            [['nama', 'gambar'], 'string', 'max' => 50],
+            [['nama'], 'unique'],
         ];
     }
 

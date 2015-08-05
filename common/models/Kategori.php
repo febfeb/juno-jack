@@ -31,9 +31,10 @@ class Kategori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'gambar'], 'required'],
+            [['nama', 'tingkat'], 'required'],
             [['id', 'jumlah_barang', 'parent_id', 'tingkat'], 'integer'],
             [['nama'], 'string', 'max' => 100],
+            [['nama'], 'unique', 'message' => 'Nama kategori harus unik'],
             [['gambar'], 'string', 'max' => 50]
         ];
     }
@@ -60,10 +61,6 @@ class Kategori extends \yii\db\ActiveRecord
 
     public function getParentString() {
         return ($this->parent_id==0?'INDUK':$this->parent->nama);
-    }
-
-    public function getUrl() {
-        return $this->hasOne(Url::className(), ['data_id' => 'id']);
     }
 
     public function getKategoriList()

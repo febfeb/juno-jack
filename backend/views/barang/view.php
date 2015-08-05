@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 if (count($thumbnails) == 0) {
                     echo '<div class="col-md-12"><div class="alert alert-danger" role="alert">Tidak ada gambar</div></div>';
+                    echo Html::a('Lihat Thumbnails', ['barang-thumbnails/index', 'id' => $model->id], ['class' => 'btn btn-success']);
                 } else {
                     foreach($thumbnails as $thumbnail){
                 ?>

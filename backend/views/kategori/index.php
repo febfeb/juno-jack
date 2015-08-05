@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Url;
 
 $this->title = 'Kategori';
 $this->params['breadcrumbs'][] = $this->title;

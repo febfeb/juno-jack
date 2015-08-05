@@ -63,12 +63,16 @@ class WarnaController extends Controller
     {
         $model = new Warna();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Warna berhasil disimpan');
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            Yii::$app->session->setFlash('danger', 'Warna gagal disimpan. '.var_dump($model->getErrors()));
-            return $this->redirect(['index', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->rgb = substr($model->rgb, 1, 6);
+
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Warna berhasil disimpan');
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->session->setFlash('success', 'Warna gagal disimpan');
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -86,14 +90,21 @@ class WarnaController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Warna berhasil diupdate');
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->rgb = substr($model->rgb, 1, 6);
+
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Warna berhasil diupdate');
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->session->setFlash('success', 'Warna gagal diupdate');
+                return $this->redirect(['index']);
+            }
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
         
     }
 

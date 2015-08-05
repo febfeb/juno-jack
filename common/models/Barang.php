@@ -50,7 +50,8 @@ class Barang extends ActiveRecord
             [['review'], 'number'],
             [['overview_1', 'overview_2'], 'string'],
             [['nama'], 'string', 'max' => 100],
-            [['kode'], 'string', 'max' => 20]
+            [['kode'], 'string', 'max' => 20],
+            [['nama'], 'unique'],
         ];
     }
 

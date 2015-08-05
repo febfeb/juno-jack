@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 
-$this->title = 'Tambah Toko';
-$this->params['breadcrumbs'][] = ['label' => 'Toko', 'url' => ['index']];
+$this->title = 'Tambah Warna';
+$this->params['breadcrumbs'][] = ['label' => 'Warna', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <br>

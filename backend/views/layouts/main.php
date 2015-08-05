@@ -50,6 +50,8 @@ AppAsset::register($this);
                                     ['label' => 'Merk', 'url' => ['merk/index']],
                                     ['label' => 'Toko', 'url' => ['toko/index']],
                                     ['label' => 'Warna', 'url' => ['warna/index']],
+                                    ['label' => '', 'options' => ['class' => 'divider']],
+                                    ['label' => 'Halaman', 'url' => ['halaman/index']],
                                 ]
                             ],
                             ['label' => '<span class="glyphicon glyphicon-log-in"></span> Pembelian',

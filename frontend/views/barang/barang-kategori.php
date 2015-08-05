@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Url;
+use common\models\Warna;
 use yii\helpers\Html;
 
 $this->title = $kategori->nama;
@@ -8,8 +9,10 @@ $this->title = $kategori->nama;
 // Breadcrumbs berdasarkan hirarki kategorinya
 $nested_kategori = [];
 while (isset($kategori->parent)) {
+    $url_kategori = Url::find()->where(['jenis' => 'k', 'data_id' => $kategori->parent->id])->one()->url;
+
     $kategori = $kategori->parent;
-    $nested_kategori[] = ['label' => $kategori->nama, 'url' => ["/" . $kategori->url->url]];
+    $nested_kategori[] = ['label' => $kategori->nama, 'url' => ["/" . $url_kategori]];
 }
 $index = count($nested_kategori);
 while ($index) {
@@ -80,7 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <a class="bottom-line-a square"><i class="fa fa-heart"></i></a>
                             </div>
                         </div>
-                        <?= Html::a($barang->kategori->nama, ['/'.$barang->kategori->url->url], ["class"=>"tag"]) ?>
+                        <?php
+                        $url_kategori = Url::find()->where(['jenis' => 'k', 'data_id' => $barang->kategori->id])->one()->url;
+                        ?>
+                        <?= Html::a($barang->kategori->nama, ['/'.$url_kategori], ["class"=>"tag"]) ?>
                         <?= Html::a($barang->nama, ['/'.$url_barang->url], ["class"=>"title"]) ?>
                         <div class="rating-box">
                             <?php 
@@ -131,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php
                                 foreach ($sub_kategori as $sub) {
                                 ?>
-                                <li><?php echo Html::a($sub->nama, ['/'.$sub->url->url], ['class' => '']) ?></li>
+                                <li><a>asf</a></li>
                                 <?php
                                 }
                                 ?>
@@ -148,7 +154,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="list">
                         <?php
                         foreach ($sub_kategori as $sub) {
-                            echo Html::a('<span><i class="fa fa-angle-right"></i> '.$sub->nama.'</span>', ['/'.$sub->url->url], ['class' => 'entry']);
+                            $url_kategori = Url::find()->where(['jenis' => 'k', 'data_id' => $sub->id])->one()->url;
+                            echo Html::a('<span><i class="fa fa-angle-right"></i> '.$sub->nama.'</span>', ['/'.$url_kategori], ['class' => 'entry']);
                         }
                         ?>                    
                     </div>
@@ -218,15 +225,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="information-blocks">
                 <div class="block-title size-2">Sort by colours</div>
                 <div class="color-selector detail-info-entry">
-                    <div style="background-color: #cf5d5d;" class="entry active"></div>
-                    <div style="background-color: #c9459f;" class="entry"></div>
-                    <div style="background-color: #689dd4;" class="entry"></div>
-                    <div style="background-color: #68d4aa;" class="entry"></div>
-                    <div style="background-color: #a8d468;" class="entry"></div>
-                    <div style="background-color: #d4c368;" class="entry"></div>
-                    <div style="background-color: #c2c2c2;" class="entry"></div>
-                    <div style="background-color: #000000;" class="entry"></div>
-                    <div style="background-color: #f0f0f0;" class="entry"></div>
+                    <!--<div style="background-color: #cf5d5d;" class="entry active"></div>-->
+                    <?php
+                    $warnas = Warna::find()->all();
+                    foreach($warnas as $warna) {
+                        echo '<div style="background-color: #'.$warna->rgb.';" class="entry"></div>';
+                    }
+                    ?>
                     <div class="spacer"></div>
                 </div>
             </div>

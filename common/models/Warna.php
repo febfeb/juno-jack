@@ -32,7 +32,7 @@ class Warna extends \yii\db\ActiveRecord
         return [
             [['nama', 'rgb'], 'required'],
             [['nama'], 'string', 'max' => 20],
-            [['rgb'], 'string', 'max' => 6]
+            [['rgb'], 'string', 'max' => 7]
         ];
     }
 

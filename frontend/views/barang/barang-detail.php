@@ -1,17 +1,24 @@
 <?php
 
 use common\models\Url;
+use common\models\Warna;
+use common\models\Barang;
 use yii\helpers\Url as Url2;
+use common\components\Angka;
+use common\components\Rating;
 
 $this->title = $barang->nama;
 
 // Breadcrumbs berdasarkan hirarki kategorinya
 $kategori = $barang->kategori;
 $nested_kategori = [];
-$nested_kategori[] = ['label' => $kategori->nama, 'url' => ["/".$kategori->url->url]];
+$url_kategori = Url::find()->where(['jenis' => 'k', 'data_id' => $kategori->id])->one()->url;
+$nested_kategori[] = ['label' => $kategori->nama, 'url' => ["/".$url_kategori]];
 while (isset($kategori->parent)) {
+    $url_kategori = Url::find()->where(['jenis' => 'k', 'data_id' => $kategori->parent->id])->one()->url;
+
     $kategori = $kategori->parent;
-    $nested_kategori[] = ['label' => $kategori->nama, 'url' => ["/".$kategori->url->url]];
+    $nested_kategori[] = ['label' => $kategori->nama, 'url' => ["/".$url_kategori]];
 }
 $index = count($nested_kategori);
 while($index) {
@@ -19,7 +26,6 @@ while($index) {
 }
 $this->params['breadcrumbs'][] = $this->title;
 
-$url_barang = Url::find()->where(['jenis' => 'b', 'data_id' => $barang->id])->one();
 
 /*
 Informasi produk:<hr>
@@ -98,25 +104,34 @@ $reviews = [];
                 <h3 class="product-subtitle">KODE SKU : <?= $barang->kode ?></h3>
                 <div class="rating-box">
                     <?php 
-                    echo \common\components\Rating::getDiv($barang->review)
+                    echo Rating::getDiv($barang->review)
                     ?>
                     <div class="rating-number "><?= $barang->review ?></div>
                 </div>
                 <div class="product-description detail-info-entry">Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                 <div class="price detail-info-entry">
                     <?php if($barang->harga_promo != NULL){ ?>
-                    <div class="prev"><?= common\components\Angka::toReadableHarga($barang->harga_normal) ?></div>
-                    <div class="current"><?= common\components\Angka::toReadableHarga($barang->harga_promo) ?></div>
+                    <div class="prev"><?= Angka::toReadableHarga($barang->harga_normal) ?></div>
+                    <div class="current"><?= Angka::toReadableHarga($barang->harga_promo) ?></div>
                     <?php }else{ ?>
-                    <div class="current"><?= common\components\Angka::toReadableHarga($barang->harga_normal) ?></div>
+                    <div class="current"><?= Angka::toReadableHarga($barang->harga_normal) ?></div>
                     <?php } ?>
                 </div>
                 <div class="color-selector detail-info-entry">
                     <div class="detail-info-entry-title">Color</div>
-                    <div class="entry active" style="background-color: #d23118;">&nbsp;</div>
-                    <div class="entry" style="background-color: #2a84c9;">&nbsp;</div>
-                    <div class="entry" style="background-color: #000;">&nbsp;</div>
-                    <div class="entry" style="background-color: #d1d1d1;">&nbsp;</div>
+                    <?php
+                    $kelompok_sama = Barang::find()->where(['kelompok' => $barang->kelompok])->andWhere(['not in', 'kelompok', ''])->all();
+                    $url_barang = Url::find()->where(['jenis' => 'b', 'data_id' => $barang->id])->one()->url;
+                    if (count($kelompok_sama) > 0) {
+                        foreach ($kelompok_sama as $kelompok) {
+                            $warna = Warna::findOne($kelompok->warna);
+                            $url_barang = Url::find()->where(['jenis' => 'b', 'data_id' => $kelompok->id])->one()->url;
+                            echo '<a href="'.$url_barang.'"><div class="entry" style="background-color: #'.$warna->rgb.';">asdf &nbsp;</div></a>';
+                        }
+                    } else {
+                        echo '<a href="'.$url_barang.'"><div class="entry active" style="background-color: #'.$barang->barangWarna->rgb.';">&nbsp;</div></a>';
+                    }
+                    ?>
                     <div class="spacer"></div>
                 </div>
                 <div class="quantity-selector detail-info-entry">
