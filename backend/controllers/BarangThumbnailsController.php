@@ -76,7 +76,7 @@ class BarangThumbnailsController extends Controller
             if (isset($gambar)) {
                 $extension = end((explode(".", $gambar->name)));
                 $model->url = Yii::$app->security->generateRandomString() . ".{$extension}";
-                $path = Yii::$app->params['uploadPathBackendThumbnails'] . $model->url;
+                $path = Yii::getAlias("@thumbnail_upload_path/").$model->url;
                 $gambar->saveAs($path);
             }
 
@@ -106,7 +106,7 @@ class BarangThumbnailsController extends Controller
     {
         $thumbnail = BarangThumbnail::findOne($id);
         $barang_id = $thumbnail->barang_id;
-        unlink('uploads/thumbnails/'.$thumbnail->url);
+        unlink(Yii::getAlias("@thumbnail_upload_path/").$thumbnail->url);
 
         $this->findModel($id)->delete();
 

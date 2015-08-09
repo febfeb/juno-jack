@@ -123,6 +123,11 @@ class SiteController extends Controller
     {
         return $this->render('tentang');
     }
+    
+    public function actionTracking()
+    {
+        return $this->render('tracking');
+    }
 
     public function actionSignup()
     {

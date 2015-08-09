@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 } else {
                     echo '
                     <div class="thumbnail">
-                        '. Html::img('uploads/kategori/'.$model->gambar).'
+                        '. Html::img(Yii::getAlias("@kategori_url/").$model->gambar).'
                     </div>
                     ';
                 }

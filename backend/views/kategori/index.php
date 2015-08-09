@@ -6,26 +6,30 @@ use common\models\Url;
 $this->title = 'Kategori';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<br>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <p><?= Html::a('Tambah Kategori', ['create'], ['class' => 'pull-right btn btn-sm btn-success']) ?></p>
-        <h2><?= Html::encode($this->title) ?></h2>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            //'filterModel' => $searchModel,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+<div class="row">
+    <div class="col-lg-12">
+        <div class="main-box">
+            <header class="main-box-header clearfix">
+                <?= Html::a('Tambah Kategori', ['create'], ['class' => 'pull-right btn btn-success']) ?>
+            </header>
 
-                // 'id',
-                'nama',
-                ['attribute' => 'parentString', 'label' => 'Parent'],
-                'tingkat',
-                'jumlah_barang',
+            <div class="main-box-body clearfix">
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
-        ]); ?>
+                    // 'id',
+                    'nama',
+                    ['attribute' => 'parentString', 'label' => 'Parent'],
+                    'tingkat',
+                    'jumlah_barang',
+
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]); ?>
+            </div>
+        </div>
     </div>
 </div>

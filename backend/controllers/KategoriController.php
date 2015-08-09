@@ -70,7 +70,7 @@ class KategoriController extends Controller
             if (isset($gambar)) {
                 $extension = end((explode(".", $gambar->name)));
                 $model->gambar = Yii::$app->security->generateRandomString() . ".{$extension}";
-                $path = Yii::$app->params['uploadPathBackendKategori'] . $model->gambar;
+                $path = Yii::getAlias("@kategori_upload_path/") . $model->gambar;
                 $gambar->saveAs($path);
             }
 
@@ -85,7 +85,7 @@ class KategoriController extends Controller
                 Yii::$app->session->setFlash('success', 'Kategori berhasil disimpan');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                unlink('uploads/kategori/'.$model->gambar);
+                unlink(Yii::getAlias("@kategori_upload_path/").$model->gambar);
 
                 Yii::$app->session->setFlash('danger', 'Kategori gagal disimpan. '.var_dump($model->errors));
                 return $this->redirect(['index', 'id' => $model->id]);
@@ -114,7 +114,7 @@ class KategoriController extends Controller
             if (isset($gambar)) {
                 $extension = end((explode(".", $gambar->name)));
                 $model->gambar = Yii::$app->security->generateRandomString() . ".{$extension}";
-                $path = Yii::$app->params['uploadPathBackendKategori'] . $model->gambar;
+                $path = Yii::getAlias("@kategori_upload_path/") . $model->gambar;
                 $gambar->saveAs($path);
             } else {
                 $model->gambar = $fileLama;
@@ -129,7 +129,7 @@ class KategoriController extends Controller
                 Yii::$app->session->setFlash('success', 'Kategori berhasil diupdate');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                unlink('uploads/kategori/'.$model->gambar);
+                unlink(Yii::getAlias("@kategori_upload_path/").$model->gambar);
                 
                 Yii::$app->session->setFlash('danger', 'Kategori gagal diupdate. '.var_dump($model->getErrors()));
                 return $this->redirect(['index']);
@@ -150,7 +150,7 @@ class KategoriController extends Controller
     public function actionDelete($id)
     {
         $kategori = Kategori::findOne($id);
-        unlink('uploads/kategori/'.$kategori->gambar);
+        unlink(Yii::getAlias("@kategori_upload_path/").$kategori->gambar);
 
         $this->findModel($id)->delete();
 
