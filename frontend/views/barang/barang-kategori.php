@@ -19,6 +19,7 @@ while ($index) {
     $this->params['breadcrumbs'][] = $nested_kategori[--$index];
 }
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="information-blocks">

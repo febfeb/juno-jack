@@ -49,4 +49,11 @@ class Halaman extends \yii\db\ActiveRecord
             'konten' => 'Konten',
         ];
     }
+
+    public function getHalamanList()
+    {
+        $droptions = Halaman::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'judul');
+    }
+
 }

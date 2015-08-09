@@ -30,13 +30,21 @@ class BarangController extends \yii\web\Controller
                 }
             }
         }
+
+        $nested_kategori = [];
+        $kategori = Kategori::findOne($id);
+        while (isset($kategori->parent)) {
+            $kategori = $kategori->parent;
+            $nested_kategori[] = ['label' => $kategori->nama];
+        }
         
         $sub_kategori = Kategori::find()->where(['parent_id' => $id])->all();
 
     	return $this->render('barang-kategori', [
             'kategori' => $core_kategori,
             'sub_kategori' => $sub_kategori,
-    		'barangs' => $barangs
+            'barangs' => $barangs,
+    		'nested_kategori' => $nested_kategori,
     	]);
     }
 

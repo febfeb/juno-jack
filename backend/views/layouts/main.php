@@ -2,6 +2,7 @@
 
 use backend\assets\AppAsset;
 use common\models\User;
+use common\models\LetakMenu;
 use backend\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -125,6 +126,12 @@ $menuItems = [];
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => '<i class="fa fa-lock"></i> <span>Login</span>', 'url' => ['/site/login']];
 } else {
+    $letakMenus = LetakMenu::find()->all();
+    $items = [];
+    foreach ($letakMenus as $letakMenu) {
+        $items[] = ['label' => $letakMenu->nama, 'url' => ['menu/index', 'lmid' => $letakMenu->id]];
+    }
+
     $menuItems = [
         ['label' => '<i class="fa fa-home"></i> <span>Home</span>', 'url' => ['site/index']],
         ['label' => '<i class="fa fa-database"></i> <span>Master Data</span>',
@@ -146,6 +153,9 @@ if (Yii::$app->user->isGuest) {
             'items' => [
                 ['label' => 'Penjualan', 'url' => ['penjualan/index']],
             ]
+        ],
+        ['label' => '<i class="fa fa-user"></i> <span>Menu</span>',
+            'items' => $items,
         ],
     ];
 }

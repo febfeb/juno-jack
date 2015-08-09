@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<script src="tinymce/tinymce.min.js"></script>
+<script src="../tinymce/tinymce.min.js"></script>
 
 <script type="text/javascript">
     tinymce.init({
