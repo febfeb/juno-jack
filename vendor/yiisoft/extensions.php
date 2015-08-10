@@ -318,4 +318,13 @@ return array (
       '@kartik/typeahead' => $vendorDir . '/kartik-v/yii2-widget-typeahead',
     ),
   ),
+  'harrytang/yii2-fineuploader' => 
+  array (
+    'name' => 'harrytang/yii2-fineuploader',
+    'version' => '1.0.2.0',
+    'alias' => 
+    array (
+      '@harrytang/fineuploader' => $vendorDir . '/harrytang/yii2-fineuploader',
+    ),
+  ),
 );

@@ -47,6 +47,7 @@ return array(
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base'),
     'kartik\\alert\\' => array($vendorDir . '/kartik-v/yii2-widget-alert'),
     'kartik\\affix\\' => array($vendorDir . '/kartik-v/yii2-widget-affix'),
+    'harrytang\\fineuploader\\' => array($vendorDir . '/harrytang/yii2-fineuploader'),
     'dosamigos\\qrcode\\' => array($vendorDir . '/2amigos/yii2-qrcode-helper/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),

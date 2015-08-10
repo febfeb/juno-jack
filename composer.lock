@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8244585990c99691b266545a2f6f2172",
+    "hash": "1b69676969354bf605126db9c2aecd91",
     "packages": [
         {
             "name": "2amigos/yii2-qrcode-helper",
@@ -419,6 +419,46 @@
                 "icon"
             ],
             "time": "2014-08-26 16:36:44"
+        },
+        {
+            "name": "harrytang/yii2-fineuploader",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/harrytang/yii2-fineuploader.git",
+                "reference": "78df8165ee9d9fb870d1cda98fa45b16c28dfa5e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/harrytang/yii2-fineuploader/zipball/78df8165ee9d9fb870d1cda98fa45b16c28dfa5e",
+                "reference": "78df8165ee9d9fb870d1cda98fa45b16c28dfa5e",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "harrytang\\fineuploader\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Harry Tang",
+                    "email": "giaduy@gmail.com"
+                }
+            ],
+            "description": "Yii2 Fine Uploader",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-07-02 03:30:12"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -2701,7 +2741,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kartik-v/yii2-widget-fileinput": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

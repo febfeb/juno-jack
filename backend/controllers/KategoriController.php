@@ -36,7 +36,7 @@ class KategoriController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Kategori::find()->orderBy('parent_id', 'level'),
+            'query' => Kategori::find()->orderBy('parent_id', 'tingkat'),
         ]);
 
         return $this->render('index', [

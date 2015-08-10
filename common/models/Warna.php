@@ -43,7 +43,7 @@ class Warna extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Warna',
             'rgb' => 'Rgb',
         ];
     }

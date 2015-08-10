@@ -92,6 +92,16 @@ class Barang extends ActiveRecord
         return $this->hasOne(Warna::className(), ['id' => 'warna']);
     }
 
+    public function getWarnaRgb()
+    {
+        $warna_lains = Barang::find()->where(['kelompok' => $this->kelompok])->all();
+        $daftar_warna = '';
+        foreach ($warna_lains as $warna) {
+            $daftar_warna .= '<span class="label" style="background: #'.$warna->barangWarna->rgb.';">&nbsp;</span> ';
+        }
+        return $daftar_warna;
+    }
+
     /**
      * @return ActiveQuery
      */

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\models\JenisKegiatan;
 use kartik\file\FileInput;
+use kartik\widgets\Select2;
 use kartik\widgets\DateTimePicker;
 
 use common\models\Warna;
@@ -24,7 +25,16 @@ use common\models\Kategori;
 
     <?= $form->field($model, 'kode')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'warna')->dropDownList(Warna::getWarnaList()) ?>
+    <?php //= $form->field($model, 'warna')->dropDownList(Warna::getWarnaList()) ?>
+    <?php echo Select2::widget([
+        'name' => 'warna',
+        'data' => $model,
+        'size' => Select2::MEDIUM,
+        'options' => ['placeholder' => 'Pilih warna apa saja', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
 
     <?php //= $form->field($model, 'status')->dropDownList(['1' => 'Selesai', '0' => 'Sedang Berlangsung']) ?>
 

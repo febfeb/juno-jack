@@ -38,11 +38,12 @@ class BarangController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Barang::find(),
+            'query' => Barang::find()->select(['nama'])->distinct(),
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            //'dataProvider' => $dataProvider,
+            'barangs' => Barang::find()->select(['kelompok'])->distinct()->all()
         ]);
     }
 
