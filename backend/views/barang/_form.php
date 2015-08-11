@@ -26,15 +26,16 @@ use common\models\Kategori;
     <?= $form->field($model, 'kode')->textInput(['maxlength' => 20]) ?>
 
     <?php //= $form->field($model, 'warna')->dropDownList(Warna::getWarnaList()) ?>
-    <?php echo Select2::widget([
-        'name' => 'warna',
-        'data' => $model,
+    <?= $form->field($model, 'array_warna')->widget(Select2::classname(), [
+        'data' => Warna::getWarnaList(),
         'size' => Select2::MEDIUM,
-        'options' => ['placeholder' => 'Pilih warna apa saja', 'multiple' => true],
+        'options' => ['placeholder' => 'Pilih warna', 'multiple' => true],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]); ?>
+    ])
+    ?>
+    <br>
 
     <?php //= $form->field($model, 'status')->dropDownList(['1' => 'Selesai', '0' => 'Sedang Berlangsung']) ?>
 
@@ -61,3 +62,11 @@ use common\models\Kategori;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<style type="text/css">
+    .select2-container {
+        display: inline !important;
+        height: 50px !important;
+        width: 100% !important;
+    }
+</style>

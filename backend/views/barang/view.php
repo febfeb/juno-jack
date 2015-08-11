@@ -4,20 +4,21 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Kegiatan */
+/* @var $barang backend\models\Kegiatan */
 
-$this->title = $model->nama;
+$this->title = $barang->nama;
 $this->params['breadcrumbs'][] = ['label' => 'Barang', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <br>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-6"><h2><?= Html::encode($this->title) ?></h2></div>
+            <div class="col-md-6"></div>
             <div class="col-md-6" style="text-align: right;"><br>
-                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
-                <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                <?= Html::a('Update', ['update', 'klp' => $barang->kelompok], ['class' => 'btn btn-primary btn-sm']) ?>
+                <?= Html::a('Delete', ['delete', 'klp' => $barang->kelompok], [
                     'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Are you sure you want to delete this item?',
@@ -26,46 +27,54 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-9">
-                <?= DetailView::widget([
-                    'model' => $model,
-                    'attributes' => [
-                        'id',
-                        'nama',
-                        'kode',
-                        'warna',
-                        'review',
-                        'kelompok',
-                        'harga_beli',
-                        'harga_normal',
-                        'harga_promo',
-                        'kategori.nama',
-                        'overview_1',
-                        'overview_2',
-                        
-                    ],
-                ]) ?>                
-            </div>
-            <div class="col-md-3">
-                <?php
-                if (count($thumbnails) == 0) {
-                    echo '<div class="col-md-12"><div class="alert alert-danger" role="alert">Tidak ada gambar</div></div>';
-                    echo Html::a('Lihat Thumbnails', ['barang-thumbnails/index', 'id' => $model->id], ['class' => 'btn btn-success']);
-                } else {
-                    foreach($thumbnails as $thumbnail){
-                ?>
-                    <div class="thumbnail">
-                        <?= Html::img('uploads/thumbnails/'.$thumbnail->url) ?>
-                        <div class="caption">
-                            <p>
-                            <?= Html::a('Hapus', ['barang-thumbnails/delete', 'id' => $thumbnail->id], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => 'Are you sure?']) ?>
-                            <!--<a href="#" class="btn btn-danger btn-xs" role="button">Hapus</a>-->
-                            </p>
-                        </div>
-                    </div>
-                <?php }} ?>
-            </div>
-        </div>
+        <hr>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Kode</th>
+                    <td><?= $barang->kode ?></td>
+                </tr>
+                <tr>
+                    <th>Nama</th>
+                    <td><?= $barang->nama ?></td>
+                </tr>
+                <tr>
+                    <th>Pilihan Warna</th>
+                    <td><?= $barang->warnaRgb ?></td>
+                </tr>
+                <tr>
+                    <th>Review</th>
+                    <td><?= $barang->review ?></td>
+                </tr>
+                <tr>
+                    <th>Kelompok</th>
+                    <td><?= $barang->kelompok ?></td>
+                </tr>
+                <tr>
+                    <th>Harga Beli</th>
+                    <td><?= $barang->harga_beli ?></td>
+                </tr>
+                <tr>
+                    <th>Harga Normal</th>
+                    <td><?= $barang->harga_normal ?></td>
+                </tr>
+                <tr>
+                    <th>Harga Promo</th>
+                    <td><?= $barang->harga_promo ?></td>
+                </tr>
+                <tr>
+                    <th>Kategori</th>
+                    <td><?= $barang->kategori->nama ?></td>
+                </tr>
+                <tr>
+                    <th>Overview 1</th>
+                    <td><?= $barang->overview_1 ?></td>
+                </tr>
+                <tr>
+                    <th>Overview 2</th>
+                    <td><?= $barang->overview_2 ?></td>
+                </tr>
+            </tbody>
+        </table>        
     </div>
 </div>

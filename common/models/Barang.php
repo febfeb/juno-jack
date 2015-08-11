@@ -31,6 +31,7 @@ use yii\helpers\Html;
  */
 class Barang extends ActiveRecord
 {
+    public $array_warna;
     /**
      * @inheritdoc
      */
@@ -45,7 +46,7 @@ class Barang extends ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'kode', 'warna', 'kelompok', 'harga_beli', 'harga_normal', 'harga_promo', 'kategori_id', 'overview_2'], 'required'],
+            [['nama', 'kode', 'warna', 'kelompok', 'harga_beli', 'harga_normal', 'harga_promo', 'kategori_id', 'overview_2', 'array_warna'], 'required'],
             [['warna', 'kelompok', 'harga_beli', 'harga_normal', 'harga_promo', 'kategori_id'], 'integer'],
             [['review'], 'number'],
             [['overview_1', 'overview_2'], 'string'],
@@ -75,6 +76,7 @@ class Barang extends ActiveRecord
             'overview_2' => 'Overview 2',
 
             'barangThumbnailsLink' => 'Thumbnails',
+            'array_warna' => 'Warna pilihan',
         ];
     }
 

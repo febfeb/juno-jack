@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td>'.$br->kategori->nama.'</td>
                                 <td>'.$br->harga_normal.'</td>
                                 <td>
-                                '.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'id' => '4']).'
+                                '.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'klp' => $barang->kelompok]).'
                                 '.Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['view', 'id' => '4']).'
                                 '.Html::a('<span class="glyphicon glyphicon-trash"></span> ', ['view', 'id' => '4'], ['data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]).'
                                 </td>

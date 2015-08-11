@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Barang;
 use common\models\BarangThumbnail;
+use common\models\Warna;
 use common\models\Url;
 use common\components\Slug;
 use yii\data\ActiveDataProvider;
@@ -37,9 +38,10 @@ class BarangController extends Controller
      */
     public function actionIndex()
     {
+        /*
         $dataProvider = new ActiveDataProvider([
             'query' => Barang::find()->select(['nama'])->distinct(),
-        ]);
+        ]);*/
 
         return $this->render('index', [
             //'dataProvider' => $dataProvider,
@@ -52,15 +54,15 @@ class BarangController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($klp)
     {
-        $barang = Barang::findOne($id);
-        $thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
+        //$barang = Barang::findOne($id);
+        //$thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            'barang' => $barang,
-            'thumbnails' => $thumbnails,
+            //'model' => $this->findModel($id),
+            'barang' => Barang::find()->where(['kelompok' => $klp])->one(),
+            //'thumbnails' => $thumbnails,
         ]);
     }
 
@@ -72,16 +74,42 @@ class BarangController extends Controller
     public function actionCreate()
     {
         $model = new Barang();
+        $array_barang = [];
+        $array_url = [];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // insert slug to url
-            $url = new Url();
-            $url->jenis = 'b';
-            $url->data_id = $model->id;
-            $url->url = Slug::slugify($model->nama);
-            $url->save();
+        $id_barang = intval(Barang::find()->max('id'))+1;
+        if ($model->load(Yii::$app->request->post())) {
+            foreach ($model->array_warna as $warna) {
+                $array_barang[]=[
+                    'id' => $id_barang,
+                    'nama' => $model->nama,
+                    'kode' => $model->kode,
+                    'warna' => $warna,
+                    'review' => $model->review,
+                    'kelompok' => intval(Barang::find()->max('kelompok'))+1,
+                    'harga_beli' => $model->harga_beli,
+                    'harga_normal' => $model->harga_normal,
+                    'harga_promo' => $model->harga_promo,
+                    'kategori_id' => $model->kategori_id,
+                    'overview_1' => $model->overview_1,
+                    'overview_2' => $model->overview_2,
+                ];
 
-            return $this->redirect(['view', 'id' => $model->id]);
+                $slug_warna = strtolower(Warna::findOne($warna)->nama);
+                $array_url[]=[
+                    'jenis' => 'b',
+                    'data_id' => $id_barang,
+                    'url' => Slug::slugify($model->nama.'-'.$slug_warna),
+                ];
+
+                $id_barang++;
+            }
+
+            Yii::$app->db->createCommand()->batchInsert('barang', ['id', 'nama', 'kode', 'warna', 'review', 'kelompok', 'harga_beli', 'harga_normal', 'harga_promo', 'kategori_id', 'overview_1', 'overview_2'], $array_barang)->execute();
+            Yii::$app->db->createCommand()->batchInsert('url', ['jenis', 'data_id', 'url'], $array_url)->execute();
+
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -95,9 +123,10 @@ class BarangController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($klp)
     {
-        $model = $this->findModel($id);
+        //$model = $this->findModel($id);
+        $model = Barang::find()->where(['kelompok' => $klp])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // update slug from url
