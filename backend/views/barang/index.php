@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <th>Warna</th>
                             <th>Kategori</th>
                             <th>Harga Normal</th>
+                            <th>Gambar</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -37,6 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td>'.$br->warnaRgb.'</td>
                                 <td>'.$br->kategori->nama.'</td>
                                 <td>'.$br->harga_normal.'</td>
+                                <td>
+                                '.Html::a('<span class="glyphicon glyphicon-picture"></span> ', ['barang-thumbnails/index', 'klp' => $barang->kelompok]).'
+                                </td>
                                 <td>
                                 '.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'klp' => $barang->kelompok]).'
                                 '.Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['view', 'id' => '4']).'

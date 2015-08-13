@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use harrytang\fineuploader\FineuploaderHandler;
 
 use common\models\Barang;
 use common\models\BarangThumbnail;
@@ -33,19 +34,40 @@ class BarangThumbnailsController extends Controller
      * Lists all BarangThumbnail models.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionIndex($klp)
     {
         /*
         $dataProvider = new ActiveDataProvider([
             'query' => BarangThumbnail::find()->where(['barang_id' => $id]),
         ]);
         */
-        $barang = Barang::findOne($id);
-        $thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
+        $barangs = Barang::find()->where(['kelompok' => $klp])->all();
+        //$thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
         return $this->render('index', [
-            'barang' => $barang,
-            'thumbnails' => $thumbnails,
+            'firstBarang' => $barangs[0],
+            'barangs' => $barangs,
+            'thumbnails' => new BarangThumbnail(),
+            //'thumbnails' => $thumbnails,
         ]);
+    }
+
+    public function actionFineUpload()
+    {
+
+        $uploader = new FineuploaderHandler();
+        $uploader->allowedExtensions = ['jpeg', 'jpg', 'png', 'bmp', 'gif']; // all files types allowed by default
+        //$uploader->sizeLimit = 5;
+        $uploader->inputName = "qqfile"; // matches Fine Uploader's default inputName value by default
+        $uploader->chunksFolder = "chunks";
+        if (Yii::$app->request->isPost) {
+            // upload file
+            $result = $uploader->handleUpload("uploads/thumbnails");
+            if (isset($result['success']) && $result['success'] == true) {
+                // do something more
+                echo json_encode($result);
+            }
+            echo json_encode($result);
+        }
     }
 
     /**

@@ -3,6 +3,8 @@
 use common\models\Url;
 use common\models\Warna;
 use yii\helpers\Html;
+use common\components\Angka;
+use common\components\Rating;
 
 $this->title = $kategori->nama;
 
@@ -91,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Html::a($barang->nama, ['/'.$url_barang->url], ["class"=>"title"]) ?>
                         <div class="rating-box">
                             <?php 
-                            echo \common\components\Rating::getDiv($barang->review)
+                            echo Rating::getDiv($barang->review)
                             ?>
                             <div class="reviews-number"><?= $barang->review ?> review</div>
                         </div>
@@ -100,10 +102,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="price">
                             <?php if($barang->harga_promo != NULL){ ?>
-                            <div class="prev"><?= common\components\Angka::toReadableHarga($barang->harga_normal) ?></div>
-                            <div class="current"><?= common\components\Angka::toReadableHarga($barang->harga_promo) ?></div>
+                            <div class="prev"><?= Angka::toReadableHarga($barang->harga_normal) ?></div>
+                            <div class="current"><?= Angka::toReadableHarga($barang->harga_promo) ?></div>
                             <?php }else{ ?>
-                            <div class="current"><?= common\components\Angka::toReadableHarga($barang->harga_normal) ?></div>
+                            <div class="current"><?= Angka::toReadableHarga($barang->harga_normal) ?></div>
                             <?php } ?>
                         </div>
                         <div class="list-buttons">

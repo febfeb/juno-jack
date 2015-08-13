@@ -163,7 +163,7 @@ class Barang extends ActiveRecord
         if (count($thumbnail) > 0) {
             return \Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url;
         } else {
-            return \yii\helpers\Url::to(['images/barang/mac.jpg']);
+            return \yii\helpers\Url::to(['images/barang/kasur.jpg']);
         }
     }
     /**
@@ -175,7 +175,7 @@ class Barang extends ActiveRecord
         if (count($thumbnail) > 0) {
             return \Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url;
         } else {
-            return \yii\helpers\Url::to(['images/barang/mac.jpg']);
+            return \yii\helpers\Url::to(['images/barang/kasur.jpg']);
         }
     }
 }

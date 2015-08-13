@@ -7,6 +7,7 @@ use kartik\file\FileInput;
 use kartik\widgets\Select2;
 use kartik\widgets\DateTimePicker;
 
+use common\models\Barang;
 use common\models\Warna;
 use common\models\Kategori;
 
@@ -26,6 +27,17 @@ use common\models\Kategori;
     <?= $form->field($model, 'kode')->textInput(['maxlength' => 20]) ?>
 
     <?php //= $form->field($model, 'warna')->dropDownList(Warna::getWarnaList()) ?>
+    <?php
+    // inisisasi warna pada saat update
+    $array_warna = [];
+    if (!$model->isNewRecord) {
+        $warnas = Barang::find()->where(['kelompok' => $model->kelompok])->all();
+        foreach ($warnas as $warna) {
+            $array_warna[] = $warna->warna;
+        }
+        $model->array_warna = $array_warna;
+    }
+    ?>
     <?= $form->field($model, 'array_warna')->widget(Select2::classname(), [
         'data' => Warna::getWarnaList(),
         'size' => Select2::MEDIUM,

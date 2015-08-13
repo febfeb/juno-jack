@@ -76,8 +76,8 @@ class BarangController extends Controller
         $model = new Barang();
         $array_barang = [];
         $array_url = [];
-
         $id_barang = intval(Barang::find()->max('id'))+1;
+
         if ($model->load(Yii::$app->request->post())) {
             foreach ($model->array_warna as $warna) {
                 $array_barang[]=[
@@ -128,13 +128,14 @@ class BarangController extends Controller
         //$model = $this->findModel($id);
         $model = Barang::find()->where(['kelompok' => $klp])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             // update slug from url
+            /*
             $url = Url::find()->where(['jenis' => 'b'])->andWhere(['data_id' => $model->id])->one();
             $url->url = Slug::slugify($model->nama);
             $url->save();
-
-            return $this->redirect(['view', 'id' => $model->id]);
+            */
+            return $this->redirect(['view', 'klp' => $model->kelompok]);
         } else {
             return $this->render('update', [
                 'model' => $model,
