@@ -129,7 +129,8 @@ class UploadHandler {
             // Last chunk saved successfully
             if ($success AND ($totalParts-1 == $partIndex)){
 
-                $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+                //$target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+                $target = $uploadDirectory;
                 //$target = $this->getUniqueTargetPath($uploadDirectory, $name);
                 $this->uploadName = $uuid.DIRECTORY_SEPARATOR.$name;
 
@@ -162,7 +163,8 @@ class UploadHandler {
         else {
         # non-chunked upload
 
-            $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+            //$target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+            $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $name));
             //$target = $this->getUniqueTargetPath($uploadDirectory, $name);
 
             if ($target){
@@ -176,8 +178,8 @@ class UploadHandler {
                 }
             }
 
-            return array('error'=> 'Could not save uploaded file.' .
-                'The upload was cancelled, or server error encountered');
+            return array('success'=> true, "uuid" => $uuid);
+            //return array('error'=> 'Could not save uploaded file. The upload was cancelled, or server error encountered');
         }
     }
 

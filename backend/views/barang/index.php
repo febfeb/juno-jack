@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-12">
         <div class="main-box">
             <header class="main-box-header clearfix">
-                <?= Html::a('Tambah Barang', ['create'], ['class' => 'pull-right btn btn-success']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Barang', ['create'], ['class' => 'pull-right btn btn-success']) ?>
             </header>
 
             <div class="main-box-body clearfix">
@@ -39,12 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td>'.$br->kategori->nama.'</td>
                                 <td>'.$br->harga_normal.'</td>
                                 <td>
-                                '.Html::a('<span class="glyphicon glyphicon-picture"></span> ', ['barang-thumbnails/index', 'klp' => $barang->kelompok]).'
+                                '.Html::a('<span class="glyphicon glyphicon-picture"></span> Gambar', ['barang-thumbnails/index', 'klp' => $barang->kelompok], ['class' => 'btn btn-xs btn-default']).'
                                 </td>
                                 <td>
-                                '.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'klp' => $barang->kelompok]).'
-                                '.Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['view', 'id' => '4']).'
-                                '.Html::a('<span class="glyphicon glyphicon-trash"></span> ', ['view', 'id' => '4'], ['data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]).'
+                                '.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'klp' => $barang->kelompok], ['class' => 'btn btn-xs btn-info']).'
+                                '.Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['view', 'klp' => $barang->kelompok], ['class' => 'btn btn-xs btn-primary']).'
+                                '.Html::a('<span class="glyphicon glyphicon-trash"></span> ', ['view', 'klp' => $barang->kelompok], ['class' => 'btn btn-xs btn-danger', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]).'
                                 </td>
                             </tr>
                             ';

@@ -43,6 +43,25 @@ class BarangThumbnailsController extends Controller
         */
         $barangs = Barang::find()->where(['kelompok' => $klp])->all();
         //$thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
+
+        $model = new BarangThumbnail();
+        if ($model->load(Yii::$app->request->post())) {
+            $gambar = UploadedFile::getInstance($model, 'gambar');
+            if (isset($gambar)) {
+                $extension = end((explode(".", $gambar->name)));
+                $model->url = Yii::$app->security->generateRandomString() . ".{$extension}";
+                $path = Yii::getAlias("@thumbnail_upload_path/").$model->url;
+                $gambar->saveAs($path);
+            }
+
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Gambar berhasil disimpan');
+            } else {
+                Yii::$app->session->setFlash('danger', 'Gambar gagal disimpan. '.var_dump($model->getErrors()));
+            }
+            return $this->redirect(['index', 'klp' => $model->barang->kelompok]);
+        }
+
         return $this->render('index', [
             'firstBarang' => $barangs[0],
             'barangs' => $barangs,
@@ -58,7 +77,7 @@ class BarangThumbnailsController extends Controller
         $uploader->allowedExtensions = ['jpeg', 'jpg', 'png', 'bmp', 'gif']; // all files types allowed by default
         //$uploader->sizeLimit = 5;
         $uploader->inputName = "qqfile"; // matches Fine Uploader's default inputName value by default
-        $uploader->chunksFolder = "chunks";
+        //$uploader->chunksFolder = "chunks";
         if (Yii::$app->request->isPost) {
             // upload file
             $result = $uploader->handleUpload("uploads/thumbnails");
@@ -127,12 +146,12 @@ class BarangThumbnailsController extends Controller
     public function actionDelete($id)
     {
         $thumbnail = BarangThumbnail::findOne($id);
-        $barang_id = $thumbnail->barang_id;
+        $klp = $thumbnail->barang->kelompok;
         unlink(Yii::getAlias("@thumbnail_upload_path/").$thumbnail->url);
 
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index', 'id' => $barang_id]);
+        return $this->redirect(['index', 'klp' => $klp]);
     }
 
     /**

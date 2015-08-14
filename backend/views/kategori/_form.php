@@ -22,11 +22,11 @@ use common\models\Kategori;
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => 100]) ?>
     
-    <?= $form->field($model, 'jumlah_barang')->textInput(['value' => '0', 'maxlength' => 50]) ?>
+    <?php //= $form->field($model, 'jumlah_barang')->textInput(['value' => '0', 'maxlength' => 50]) ?>
 
     <?= $form->field($model, 'parent_id')->dropDownList(Kategori::getParentList(), ['prompt' => 'INDUK']) ?>
 
-    <?= $form->field($model, 'tingkat')->textInput(['maxlength' => 10]) ?>
+    <?php //= $form->field($model, 'tingkat')->textInput(['maxlength' => 10, 'value' => '1']) ?>
 
     <?= $form->field($model, 'gambar')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],

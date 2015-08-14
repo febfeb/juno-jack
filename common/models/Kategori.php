@@ -31,11 +31,12 @@ class Kategori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'tingkat'], 'required'],
-            [['id', 'jumlah_barang', 'parent_id', 'tingkat'], 'integer'],
+            [['nama'], 'required'],
+            [['id', 'jumlah_barang', 'tingkat'], 'integer'],
+            [['parent_id'], 'default', 'value' => '0'],
             [['nama'], 'string', 'max' => 100],
             [['nama'], 'unique', 'message' => 'Nama kategori harus unik'],
-            [['gambar'], 'string', 'max' => 50]
+            [['gambar'], 'string']
         ];
     }
 
@@ -51,6 +52,8 @@ class Kategori extends \yii\db\ActiveRecord
             'jumlah_barang' => 'Jumlah Barang',
             'parent_id' => 'Parent ID',
             'tingkat' => 'Tingkat',
+
+            'parent_id' => 'Kategori Induk',
 
         ];
     }

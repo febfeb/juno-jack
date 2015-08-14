@@ -66,6 +66,11 @@ class KategoriController extends Controller
         $model = new Kategori();
 
         if ($model->load(Yii::$app->request->post())) {
+            if ($model->parent_id != 0) {
+                $tingkat = Kategori::findOne($model->parent_id)->tingkat;
+                $model->tingkat = intval($tingkat)+1;
+            }
+
             $gambar = UploadedFile::getInstance($model, 'gambar');
             if (isset($gambar)) {
                 $extension = end((explode(".", $gambar->name)));

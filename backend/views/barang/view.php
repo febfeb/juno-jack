@@ -17,9 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-6"><?= Html::a('<span class="glyphicon glyphicon-menu-left"></span> Kembali', ['index'], ['class' => 'btn btn-warning']) ?><hr></div>
             <div class="col-md-6" style="text-align: right;"><br>
-                <?= Html::a('Gambar', ['barang-thumbnails/index', 'klp' => $barang->kelompok], ['class' => 'btn btn-info btn-sm']) ?>
-                <?= Html::a('Update', ['update', 'klp' => $barang->kelompok], ['class' => 'btn btn-primary btn-sm']) ?>
-                <?= Html::a('Delete', ['delete', 'klp' => $barang->kelompok], [
+                <?= Html::a('<span class="glyphicon glyphicon-picture"></span> Gambar', ['barang-thumbnails/index', 'klp' => $barang->kelompok], ['class' => 'btn btn-default btn-sm']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Update', ['update', 'klp' => $barang->kelompok], ['class' => 'btn btn-primary btn-sm']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'klp' => $barang->kelompok], [
                     'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Are you sure you want to delete this item?',

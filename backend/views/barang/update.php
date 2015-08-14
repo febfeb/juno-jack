@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-6">
         <div class="main-box">
             <header class="main-box-header clearfix">
-                
+                <?= Html::a('<span class="glyphicon glyphicon-menu-left"></span> Kembali', ['view', 'klp' => $model->kelompok], ['class' => 'btn btn-warning']) ?><hr>
             </header>
             <div class="main-box-body clearfix">
                 <?= $this->render('_form', [

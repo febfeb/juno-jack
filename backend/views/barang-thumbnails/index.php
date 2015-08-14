@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                         <div class="col-md-3">
                                             <div class="thumbnail">
-                                                <?= Html::img('../uploads/thumbnails/'.$thumbnail->url) ?>
+                                                <?= Html::img(Yii::getAlias('@thumbnail_url/').$thumbnail->url) ?>
                                                 <div class="caption">
                                                     <p>
                                                     <?= Html::a('Hapus', ['barang-thumbnails/delete', 'id' => $thumbnail->id], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => 'Are you sure?']) ?>

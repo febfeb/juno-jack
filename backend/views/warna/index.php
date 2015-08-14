@@ -9,7 +9,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-12">
         <div class="main-box">
             <header class="main-box-header clearfix">
-                <?= Html::a('Tambah Kategori', ['create'], ['class' => 'pull-right btn btn-success']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-plus"></span> Tambah Warna', ['create'], ['class' => 'pull-right btn btn-success']) ?>
             </header>
 
             <div class="main-box-body clearfix">
@@ -24,7 +24,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         'rgb',
                         ['attribute' => 'tampilanWarna', 'format' => 'raw'],
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        //['class' => 'yii\grid\ActionColumn'],
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'template' => '{view}{update}{delete}',
+                            'buttons' => [
+                                'view' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'id' => $model->id], ['class' => 'btn btn-info btn-sm']).' ';
+                                },
+                                'update' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']).' ';
+                                },
+                                'delete' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span> ', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]);
+                                },
+                            ]
+                        ],
                     ],
                 ]); ?>
             </div>

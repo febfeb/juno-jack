@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-6"><?= Html::a('<span class="glyphicon glyphicon-menu-left"></span> Kembali', ['index'], ['class' => 'btn btn-warning']) ?><hr></div>
             <div class="col-md-6" style="text-align: right;"><br>
-                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
-                <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Are you sure you want to delete this item?',

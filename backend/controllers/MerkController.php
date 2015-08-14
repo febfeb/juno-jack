@@ -70,7 +70,7 @@ class MerkController extends Controller
             if (isset($gambar)) {
                 $extension = end((explode(".", $gambar->name)));
                 $model->gambar = Yii::$app->security->generateRandomString() . ".{$extension}";
-                $path = Yii::$app->params['uploadPathBackendMerk'] . $model->gambar;
+                $path = Yii::getAlias("@merk_upload_path/") . $model->gambar;
                 $gambar->saveAs($path);
             }
 
@@ -85,7 +85,7 @@ class MerkController extends Controller
                 Yii::$app->session->setFlash('success', 'Merk berhasil disimpan');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-                unlink('uploads/kategori/'.$model->gambar);
+                unlink('uploads/merk/'.$model->gambar);
 
                 Yii::$app->session->setFlash('danger', 'Merk gagal disimpan. '.var_dump($model->getErrors()));
                 return $this->redirect(['index', 'id' => $model->id]);
@@ -114,7 +114,7 @@ class MerkController extends Controller
             if (isset($gambar)) {
                 $extension = end((explode(".", $gambar->name)));
                 $model->gambar = Yii::$app->security->generateRandomString() . ".{$extension}";
-                $path = Yii::$app->params['uploadPathBackendMerk'] . $model->gambar;
+                $path = Yii::getAlias("@merk_upload_path/") . $model->gambar;
                 $gambar->saveAs($path);
             } else {
                 $model->gambar = $fileLama;

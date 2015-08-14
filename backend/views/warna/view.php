@@ -8,7 +8,7 @@ use yii\bootstrap\Alert;
 /* @var $model backend\models\Kegiatan */
 
 $this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Toko', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Warna', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <br>

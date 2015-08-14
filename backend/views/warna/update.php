@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 
 $this->title = 'Update';
-$this->params['breadcrumbs'][] = ['label' => 'Toko', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Warna', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nama, 'url' => ['barang/view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

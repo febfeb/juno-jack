@@ -33,9 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         'nama',
-                        
-                        
-                        
                     ],
                 ]) ?>                
             </div>
@@ -46,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 } else {
                     echo '
                     <div class="thumbnail">
-                        '. Html::img('uploads/merk/'.$model->gambar).'
+                        '. Html::img(Yii::getAlias('@merk_url/') .$model->gambar).'
                     </div>
                     ';
                 }
