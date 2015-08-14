@@ -1,9 +1,11 @@
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\components\Slug;
 use yii\widgets\ActiveForm;
 use kartik\widgets\FileInput;
+
+use common\components\Slug;
+use common\models\BarangThumbnail;
 
 $this->title = 'Thumbnails';
 $this->params['breadcrumbs'][] = ['label' => 'Barang', 'url' => ['barang/index']];
@@ -13,6 +15,35 @@ $this->params['breadcrumbs'][] = $this->title;
 <br>
 <div class="panel panel-default">
     <div class="panel-body">
+
+        <?= Html::a('<span class="glyphicon glyphicon-menu-left"></span> Kembali', ['barang/view', 'klp' => $firstBarang->kelompok], ['class' => 'btn btn-warning']) ?><hr>
+
+        <table class="table table-bordered">
+            <tr>
+                <th width="20%">Kode</th>
+                <td><?= $firstBarang->kode ?></td>
+            </tr>
+            <tr>
+                <th>Nama Barang</th>
+                <td><?= $firstBarang->nama ?></td>
+            </tr>
+            <tr>
+                <th>Kategori</th>
+                <td><?= $firstBarang->kategori->nama ?></td>
+            </tr>
+            <tr>
+                <th>Harga Beli</th>
+                <td><?= $firstBarang->harga_beli ?></td>
+            </tr>
+            <tr>
+                <th>Harga Normal</th>
+                <td><?= $firstBarang->harga_normal ?></td>
+            </tr>
+            <tr>
+                <th>Harga Promo</th>
+                <td><?= $firstBarang->harga_promo ?></td>
+            </tr>
+        </table>
 
         <ul class="nav nav-tabs">
             <?php
@@ -31,18 +62,41 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($barangs as $barang) {
                         if ($i==1) $class='in active'; else $class=''; $i++; ?>
 
-                        <div class="panel panel-default">
-                                
-                        </div>
-
                         <div id="<?= Slug::slugify($barang->nama.'-'.$barang->barangWarna->nama) ?>" class="tab-pane fade <?= $class ?>">
-                            <p><?= $barang->barangWarna->nama ?></p>
+
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <?php
+                                    $thumbnails = BarangThumbnail::find()->where(['barang_id' => $barang->id])->all();
+                                    ?>
+                                    <div class="row">
+                                        <?php
+                                        if (count($thumbnails) == 0) {
+                                            echo '<div class="col-md-12"><div class="alert alert-danger" role="alert">Tidak ada gambar</div></div>';
+                                        } else {
+                                            foreach($thumbnails as $thumbnail){
+                                        ?>
+                                        <div class="col-md-3">
+                                            <div class="thumbnail">
+                                                <?= Html::img('../uploads/thumbnails/'.$thumbnail->url) ?>
+                                                <div class="caption">
+                                                    <p>
+                                                    <?= Html::a('Hapus', ['barang-thumbnails/delete', 'id' => $thumbnail->id], ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => 'Are you sure?']) ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }} ?>
+                                    </div>                                    
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <?php
                                     $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data']]);
-                                    echo $form->field($thumbnails, 'barang_id')->hiddenInput(['value' => $barang->id])->label(false);
-                                    echo $form->field($thumbnails, 'gambar')->widget(FileInput::classname(), ['options' => ['accept' => 'image/*']]);
+                                    echo $form->field($newThumbnails, 'barang_id')->hiddenInput(['value' => $barang->id])->label(false);
+                                    echo $form->field($newThumbnails, 'gambar')->widget(FileInput::classname(), ['options' => ['accept' => 'image/*', 'id' => $barang->id]]);
                                     ActiveForm::end();
                                     ?>
                                 </div>
@@ -105,7 +159,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <php }} ?>
-
         </div>
 
     </div>

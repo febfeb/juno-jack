@@ -46,7 +46,7 @@ class BarangThumbnailsController extends Controller
         return $this->render('index', [
             'firstBarang' => $barangs[0],
             'barangs' => $barangs,
-            'thumbnails' => new BarangThumbnail(),
+            'newThumbnails' => new BarangThumbnail(),
             //'thumbnails' => $thumbnails,
         ]);
     }

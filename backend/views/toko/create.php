@@ -10,7 +10,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-6">
 		<div class="panel panel-default">
 		    <div class="panel-body">
-			    <h2><?= Html::encode($this->title) ?></h2>
+			    <?= Html::a('<span class="glyphicon glyphicon-menu-left"></span> Kembali', ['index'], ['class' => 'btn btn-warning']) ?><hr>
+
 			    <?= $this->render('_form', [
 			        'model' => $model,
 			    ]) ?>

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-6"><h2><?= Html::encode($this->title) ?></h2></div>
+            <div class="col-md-6"><?= Html::a('<span class="glyphicon glyphicon-menu-left"></span> Kembali', ['index'], ['class' => 'btn btn-warning']) ?><hr></div>
             <div class="col-md-6" style="text-align: right;"><br>
                 <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?= Html::a('Delete', ['delete', 'id' => $model->id], [

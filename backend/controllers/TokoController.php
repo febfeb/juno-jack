@@ -66,9 +66,6 @@ class TokoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Toko berhasil disimpan');
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            Yii::$app->session->setFlash('danger', 'Toko gagal disimpan. '.var_dump($model->getErrors()));
-            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
