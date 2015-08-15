@@ -57,6 +57,11 @@ class Kategori extends \yii\db\ActiveRecord
 
         ];
     }
+
+    public function getChilds()
+    {
+        return $this->hasMany(Kategori::className(), ['parent_id' => 'id']);
+    }
     
     public function getParent() {
         return $this->hasOne(Kategori::className(), ['id' => 'parent_id']);

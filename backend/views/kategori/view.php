@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap\Alert;
+use common\models\Kategori;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Kegiatan */
@@ -28,6 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="row">
             <div class="col-md-9">
+                <b><font size="3">Pisisi Hirarki</font></b><br><br>
+                <?php
+                $nested_kategori = [];
+                $hirarkies = [];
+                $kategori = Kategori::findOne($model->id);
+                while (isset($kategori->parent)) {
+                    $kategori = $kategori->parent;
+                    $nested_kategori[] = ['id' => $kategori->id, 'nama' => $kategori->nama];
+                }
+                $index = count($nested_kategori);
+                while ($index) $hirarkies[] = $nested_kategori[--$index];
+                foreach ($hirarkies as $hirarki) {
+                    echo Html::a('<span class="glyphicon glyphicon-menu-right"></span> '.$hirarki['nama'], ['view', 'id' => $hirarki['id']], ['class' => 'btn btn-xs btn-info']).' ';
+                }
+                ?>
+                <div class="btn btn-default btn-xs"><span class="glyphicon glyphicon-menu-right"></span> <?= $model->nama ?></div>
+
+                <hr>
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
@@ -39,7 +58,38 @@ $this->params['breadcrumbs'][] = $this->title;
                         
                         
                     ],
-                ]) ?>                
+                ]) ?>
+
+                <hr>
+                <b><font size="3">Anak Kategori dari <?= $model->nama ?></font></b><br><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kategori</th>
+                            <th>Tingkat</th>
+                            <th>Jumlah Barang</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $childs = Kategori::find()->where(['parent_id' => $model->id])->all();
+                        $i=1;
+                        foreach ($childs as $child) {
+                            echo '
+                            <tr>
+                                <td>'.$i++.'</td>
+                                <td>'.$child->nama.'</td>
+                                <td>'.$child->tingkat.'</td>
+                                <td>'.$child->jumlah_barang.'</td>
+                                <td>'.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'id' => $child->id], ['class' => 'btn btn-xs btn-info']).'</td>
+                            </tr>
+                            ';                            
+                        }
+                        ?>
+                    </tbody>
+                </table>                
             </div>
             <div class="col-md-3">
                 <?php

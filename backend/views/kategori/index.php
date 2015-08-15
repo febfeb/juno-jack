@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Url;
+use common\models\Kategori;
 
 $this->title = 'Kategori';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,36 +15,46 @@ $this->params['breadcrumbs'][] = $this->title;
             </header>
 
             <div class="main-box-body clearfix">
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                //'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kategori</th>
+                            <th>Tingkat</th>
+                            <th>Jumlah Barang</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 
-                    // 'id',
-                    'nama',
-                    ['attribute' => 'parentString', 'label' => 'Parent'],
-                    'tingkat',
-                    'jumlah_barang',
+                        function displayChildren ($parent_id) {
+                            static $i=1;
+                            $nodes = Kategori::find()->where(['parent_id' => $parent_id])->all();
+                            foreach ($nodes as $node) {
+                                echo '
+                                <tr>
+                                    <td>'.$i++.'</td>
+                                    <td>'.str_repeat('===', $node->tingkat).' '.($parent_id==0?'<b><font size="3">'.$node->nama.'</font></b>':$node->nama).'</td>
+                                    <td>'.$node->tingkat.'</td>
+                                    <td>'.$node->jumlah_barang.'</td>
+                                    <td>
+                                    '.Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'id' => $node->id], ['class' => 'btn btn-xs btn-info']).'
+                                    '.Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['update', 'id' => $node->id], ['class' => 'btn btn-xs btn-primary']).'
+                                    '.Html::a('<span class="glyphicon glyphicon-trash"></span> ', ['delete', 'id' => $node->id], ['class' => 'btn btn-xs btn-danger', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]).'
+                                    </td>
+                                </tr>';
 
-                    //['class' => 'yii\grid\ActionColumn'],
-                    [
-                        'class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}{update}{delete}',
-                        'buttons' => [
-                            'view' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span> ', ['view', 'id' => $model->id], ['class' => 'btn btn-info btn-sm']).' ';
-                            },
-                            'update' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']).' ';
-                            },
-                            'delete' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-trash"></span> ', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]);
-                            },
-                        ]
-                    ],
-                ],
-            ]); ?>
+                                // infinit loops
+                                displayChildren($node->id);
+                            }
+                        }
+
+                        displayChildren(0);
+                        
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

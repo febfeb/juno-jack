@@ -41,6 +41,7 @@ class KategoriController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'parents' => Kategori::find()->where(['tingkat' => '1'])->orderBy('id')->all(),
         ]);
     }
 
@@ -112,6 +113,7 @@ class KategoriController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $gambar_lama = Kategori::findOne($id)->gambar;
         $fileLama = $model->gambar;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -121,6 +123,9 @@ class KategoriController extends Controller
                 $model->gambar = Yii::$app->security->generateRandomString() . ".{$extension}";
                 $path = Yii::getAlias("@kategori_upload_path/") . $model->gambar;
                 $gambar->saveAs($path);
+                
+                // jika upload gambar baru, maka yang lama dihapus
+                unlink(Yii::getAlias("@kategori_upload_path/").$gambar_lama);
             } else {
                 $model->gambar = $fileLama;
             }
