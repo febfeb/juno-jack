@@ -26,7 +26,7 @@ class AppAsset extends AssetBundle
         'theme/css/libs/daterangepicker.css',
         'theme/css/libs/bootstrap-timepicker.css',
         'theme/css/libs/select2.css',
-        //'css/site.css',
+        'css/override.css',
     ];
     public $js = [
         //'theme/js/demo-skin-changer.js',

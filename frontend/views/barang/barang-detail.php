@@ -56,7 +56,7 @@ $reviews = [];
                             echo '
                             <div class="swiper-slide">
                                 <div class="product-zoom-image">
-                                    <img src="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" alt="" data-zoom="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" />
+                                    <img src="'.\Yii::getAlias('@frontend_url').'/uploads/thumbnails/'.$thumbnail->url.'" alt="" data-zoom="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" />
                                 </div>
                             </div>
                             ';
@@ -86,7 +86,7 @@ $reviews = [];
                                 echo '
                                 <div class="swiper-slide '.$selected.'">
                                     <div class="paddings-container">
-                                        <img src="'.\Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url.'" alt="" />
+                                        <img src="'.\Yii::getAlias('@frontend_url').'/uploads/thumbnails/'.$thumbnail->url.'" alt="" />
                                     </div>
                                 </div>
                                 ';
@@ -141,8 +141,8 @@ $reviews = [];
                     <div class="entry number-plus">&nbsp;</div>
                 </div>
                 <div class="detail-info-entry">
-                    <a class="button style-10">Tambah ke Keranjang</a>
-                    <a class="button style-11"><i class="fa fa-heart"></i> Tambah ke Wishlist</a>
+                    <a class="button style-10 add-to-cart" barang_id="<?= $barang->id ?>">Tambah ke Keranjang</a>
+                    <a class="button style-11 add-to-wishlist" barang_id="<?= $barang->id ?>"><i class="fa fa-heart"></i> Tambah ke Wishlist</a>
                     <div class="clear"></div>
                 </div>
                 <div class="share-box detail-info-entry">
@@ -151,9 +151,6 @@ $reviews = [];
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-youtube"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -260,3 +257,27 @@ $reviews = [];
         </div>
     </div>
 </div>
+
+
+<?php 
+$url_cart = yii\helpers\Url::to(["/site/add-to-cart/"]);
+
+$js = '
+
+$(".add-to-cart").click(function(){
+    $.ajax({
+        url : "'.$url_cart.'",
+        data : {
+            barang_id : $(this).attr("barang_id"),
+            jumlah : 1
+        },
+        type : "get",
+        success : function(msg){
+            alert("Barang telah ditambahkan ke keranjang.");
+        }
+    });
+    return false;
+});
+
+';
+$this->registerJs($js); ?>

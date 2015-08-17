@@ -186,4 +186,15 @@ class KategoriController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionReloadSemuaJumlah(){
+        foreach (Kategori::find()->all() as $kategori) {
+            $children_kategori = Kategori::getAllChildrenFromID($kategori->id);
+            $jml = \common\models\Barang::find()->where(["kategori_id"=>$children_kategori])->count();
+            $kategori->jumlah_barang = $jml;
+            $kategori->save();
+        }
+        
+        return $this->redirect(['index']);
+    }
 }

@@ -70,17 +70,46 @@ class Kategori extends \yii\db\ActiveRecord
     public function getParentString() {
         return ($this->parent_id==0?'INDUK':$this->parent->nama);
     }
-
-    public function getKategoriList()
-    {
-        $droptions = Kategori::find()->where(['not in', 'parent_id', '0'])->asArray()->all();
-        return ArrayHelper::map($droptions, 'id', 'nama');
-    }  
-
-    public function getParentList()
-    {
+    
+    public function getParentList() {
         $droptions = Kategori::find()->asArray()->all();
         return ArrayHelper::map($droptions, 'id', 'nama');
     } 
+    
+    /* Static Functions */
+    
+    /**
+     * Mencari anak kategori dari sebuah ID
+     * @param type $induk_id
+     * @return type
+     */
+    public static function getKategoriChild($induk_id = 0){
+        $out = [];
+        $kat = Kategori::findOne($induk_id);
+        if($kat){
+            $pad = str_replace("@", "--", str_pad("", $kat->tingkat-1, "@", STR_PAD_LEFT));
+            $out = [$induk_id => $pad. $kat->nama];
+        }
+        
+        foreach (Kategori::find()->where(["parent_id"=>$induk_id])->all() as $kategori) {
+            $hasil = Kategori::getKategoriChild($kategori->id);
+            foreach ($hasil as $key => $val) {
+                $out[$key] = $val;
+            }
+        }
+        
+        return $out;
+    }
+
+    public static function getAllChildrenFromID($id = 0){
+        $array = [$id];
+        $all = Kategori::find()->where(['parent_id' => $id])->all();
+        foreach ($all as $kategori){
+            foreach (Kategori::getAllChildrenFromID($kategori->id) as $m) {
+                $array[] = $m;
+            }
+        }
+        return $array;
+    }
 
 }

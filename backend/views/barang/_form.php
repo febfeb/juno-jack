@@ -41,7 +41,7 @@ use common\models\Kategori;
     <?= $form->field($model, 'array_warna')->widget(Select2::classname(), [
         'data' => Warna::getWarnaList(),
         'size' => Select2::MEDIUM,
-        'options' => ['placeholder' => 'Pilih warna', 'multiple' => true],
+        'options' => ['placeholder' => 'Pilih warna', 'multiple' => true, "style"=>"width:100%"],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -51,24 +51,21 @@ use common\models\Kategori;
 
     <?php //= $form->field($model, 'status')->dropDownList(['1' => 'Selesai', '0' => 'Sedang Berlangsung']) ?>
 
-    <?= $form->field($model, 'review')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'kelompok')->textInput(['maxlength' => 20]) ?>
-
     <?= $form->field($model, 'harga_beli')->textInput(['maxlength' => 20]) ?>
 
     <?= $form->field($model, 'harga_normal')->textInput(['maxlength' => 20]) ?>
 
     <?= $form->field($model, 'harga_promo')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'kategori_id')->dropDownList(Kategori::getKategoriList()) ?>
+    <?= $form->field($model, 'kategori_id')->dropDownList(Kategori::getKategoriChild()) ?>
 
     <?= $form->field($model, 'overview_1')->textArea() ?>
 
     <?= $form->field($model, 'overview_2')->textArea() ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton("<i class='fa fa-save'></i> Simpan", ['class' => 'btn btn-success']) ?>
+        
     </div>
 
     <?php ActiveForm::end(); ?>

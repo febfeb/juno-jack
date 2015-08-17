@@ -69,7 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="clear"></div>
             </div>
             <div class="row shop-grid grid-view">
-
                 <?php
                 foreach($barangs as $barang){
                     $thumbnail = $barang->thumbnailUtama;
@@ -82,8 +81,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <img src="<?= $thumbnail ?>" alt="" />
                             <img src="<?= $thumbnail2 ?>" alt="" />
                             <div class="bottom-line left-attached">
-                                <a class="bottom-line-a square"><i class="fa fa-shopping-cart"></i></a>
-                                <a class="bottom-line-a square"><i class="fa fa-heart"></i></a>
+                                <a class="bottom-line-a square add-to-cart" barang_id="<?= $barang->id ?>"><i class="fa fa-shopping-cart"></i></a>
+                                <a class="bottom-line-a square add-like" barang_id="<?= $barang->id ?>"><i class="fa fa-heart"></i></a>
                             </div>
                         </div>
                         <?php
@@ -130,115 +129,30 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="col-md-3 col-md-pull-9 col-sm-4 col-sm-pull-8 blog-sidebar">
-            <!--
-            <div class="information-blocks categories-border-wrapper">
-                <div class="block-title size-3">Categories</div>
-                <div class="accordeon">
-                    <div class="accordeon-entry">
-                        <div class="article-container style-1">
-                            <ul>
-                                <?php
-                                foreach ($sub_kategori as $sub) {
-                                ?>
-                                <li><a>asf</a></li>
-                                <?php
-                                }
-                                ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
-            <div class="information-blocks"><br><br><br>
-                <div class="block-title size-2">Categories</div>
-                <div class="sidebar-navigation">
-                    <div class="title">Sub Kategori <i class="fa fa-angle-down"></i></div>
-                    <div class="list">
-                        <?php
-                        foreach ($sub_kategori as $sub) {
-                            $url_kategori = Url::find()->where(['jenis' => 'k', 'data_id' => $sub->id])->one()->url;
-                            echo Html::a('<span><i class="fa fa-angle-right"></i> '.$sub->nama.'</span>', ['/'.$url_kategori], ['class' => 'entry']);
-                        }
-                        ?>                    
-                    </div>
-                </div>
-            </div>
-
-            <div class="information-blocks">
-                <div class="block-title size-2">Sort by sizes</div>
-                <div class="range-wrapper">
-                    <div id="prices-range"></div>
-                    <div class="range-price">
-                        Price: 
-                        <div class="min-price"><b>&pound;<span>0</span></b></div>
-                        <b>-</b>
-                        <div class="max-price"><b>&pound;<span>200</span></b></div>
-                    </div>
-                    <a class="button style-14">filter</a>
-                </div>
-            </div>
-
-            <div class="information-blocks">
-                <div class="block-title size-2">Sort by sizes</div>
-                <div class="size-selector">
-                    <div class="entry active">xs</div>
-                    <div class="entry">s</div>
-                    <div class="entry">m</div>
-                    <div class="entry">l</div>
-                    <div class="entry">xl</div>
-                    <div class="spacer"></div>
-                </div>
-            </div>
-
-            <div class="information-blocks">
-                <div class="block-title size-2">Sort by brands</div>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Armani
-                        </label>
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Bershka Co
-                        </label>
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Nelly.com
-                        </label>
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Zigzag Inc
-                        </label>  
-                    </div>
-                    <div class="col-xs-6">
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Armani
-                        </label>
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Bershka Co
-                        </label>
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Nelly.com
-                        </label>
-                        <label class="checkbox-entry">
-                            <input type="checkbox" /> <span class="check"></span> Zigzag Inc
-                        </label> 
-                    </div>
-                </div>
-            </div>
-
-            <div class="information-blocks">
-                <div class="block-title size-2">Sort by colours</div>
-                <div class="color-selector detail-info-entry">
-                    <!--<div style="background-color: #cf5d5d;" class="entry active"></div>-->
-                    <?php
-                    $warnas = Warna::find()->all();
-                    foreach($warnas as $warna) {
-                        echo '<div style="background-color: #'.$warna->rgb.';" class="entry"></div>';
-                    }
-                    ?>
-                    <div class="spacer"></div>
-                </div>
-            </div>
-
+            <?php echo $this->render("@frontend/views/barang/barang-kategori-sidebar", ["sidebar_menu"=>$sidebar_menu]); ?>
         </div>
     </div>
 </div>
+
+<?php 
+$url_cart = yii\helpers\Url::to(["/site/add-to-cart/"]);
+
+$js = '
+
+$(".add-to-cart").click(function(){
+    $.ajax({
+        url : "'.$url_cart.'",
+        data : {
+            barang_id : $(this).attr("barang_id"),
+            jumlah : 1
+        },
+        type : "get",
+        success : function(msg){
+            alert("Barang telah ditambahkan ke keranjang.");
+        }
+    });
+    return false;
+});
+
+';
+$this->registerJs($js); ?>

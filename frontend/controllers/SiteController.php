@@ -51,7 +51,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    
                 ],
             ],
         ];
@@ -225,14 +225,54 @@ class SiteController extends Controller
     * Halaman statis di frontend
     */
 
-    public function actionProfilVisi()
+    public function actionCart()
     {
-        return $this->render('profil-visi');
+        return $this->render('cart');
     }
 
-    public function actionProfilStruktur()
+    public function actionAddToCart($barang_id, $jumlah)
     {
-        return $this->render('profil-struktur');
+        $carts = Yii::$app->session["cart"];
+        if($carts == NULL){
+            $carts = [];
+        }
+        
+        $ada = FALSE;
+        
+        foreach ($carts as $cart) {
+            if($cart["barang_id"] == $barang_id){
+                $cart["jumlah"] += $jumlah;
+                $ada = TRUE;
+            }
+        }
+        
+        if(!$ada){
+            $obj = [
+                "barang_id" => $barang_id,
+                "jumlah" => $jumlah
+            ];
+            $carts[] = $obj;
+        }
+        
+        Yii::$app->session["cart"] = $carts;
+    }
+    
+    public function actionRemoveFromCart($barang_id)
+    {
+        $carts = Yii::$app->session["cart"];
+        if($carts == NULL){
+            $carts = [];
+        }
+        
+        $i = 0;
+        foreach ($carts as $cart) {
+            if($cart["barang_id"] == $barang_id){
+                unset($carts[$i]);
+            }
+            $i++;
+        }
+        
+        Yii::$app->session["cart"] = $carts;
     }
 
     public function actionProfilKemitraan()

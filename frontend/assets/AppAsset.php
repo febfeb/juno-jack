@@ -22,6 +22,8 @@ class AppAsset extends AssetBundle
         'theme/css/idangerous.swiper.css',
         'theme/css/font-awesome.min.css',
         'theme/css/style.css',
+        'css/font.css',
+        'css/override.css',
     ];
     public $js = [
         'theme/js/jquery-2.1.3.min.js',

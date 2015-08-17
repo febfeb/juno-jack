@@ -71,9 +71,9 @@ class Barang extends ActiveRecord
             'harga_beli' => 'Harga Beli',
             'harga_normal' => 'Harga Normal',
             'harga_promo' => 'Harga Promo',
-            'kategori_id' => 'Kategori ID',
-            'overview_1' => 'Overview 1',
-            'overview_2' => 'Overview 2',
+            'kategori_id' => 'Kategori',
+            'overview_1' => 'Overview #1',
+            'overview_2' => 'Overview #2',
 
             'barangThumbnailsLink' => 'Thumbnails',
             'array_warna' => 'Warna pilihan',
@@ -84,6 +84,18 @@ class Barang extends ActiveRecord
     public function getKategori()
     {
         return $this->hasOne(Kategori::className(), ['id' => 'kategori_id']);
+    }
+    
+    public function getUrl()
+    {
+        $url = Url::find()->where(["jenis"=>"b", "data_id"=>$this->id])->one();
+        return ["/".$url->url];
+    }
+    
+    public function getHarga()
+    {
+        if($this->harga_promo == NULL) return $this->harga_normal;
+        else return $this->harga_promo;
     }
 
     /**
@@ -161,7 +173,7 @@ class Barang extends ActiveRecord
     {
         $thumbnail = BarangThumbnail::find()->where(['barang_id' => $this->id])->one();
         if (count($thumbnail) > 0) {
-            return \Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url;
+            return \Yii::getAlias('@frontend_url').'/uploads/thumbnails/'.$thumbnail->url;
         } else {
             return \yii\helpers\Url::to(['images/barang/kasur.jpg']);
         }
@@ -173,7 +185,7 @@ class Barang extends ActiveRecord
     {
         $thumbnail = BarangThumbnail::find()->where(['barang_id' => $this->id])->one();
         if (count($thumbnail) > 0) {
-            return \Yii::getAlias('@backend_url').'/thumbnails/'.$thumbnail->url;
+            return \Yii::getAlias('@frontend_url').'/uploads/thumbnails/'.$thumbnail->url;
         } else {
             return \yii\helpers\Url::to(['images/barang/kasur.jpg']);
         }

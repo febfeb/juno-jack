@@ -9,7 +9,7 @@ Yii::setAlias('merk_upload_path', dirname(dirname(__DIR__)) . '/frontend/web/upl
 Yii::setAlias('kategori_upload_path', dirname(dirname(__DIR__)) . '/frontend/web/uploads/kategori');
 Yii::setAlias('gambar_upload_path', dirname(dirname(__DIR__)) . '/frontend/web/uploads/gambar');
 
-$frontURL = "http://localhost/juno-jack/frontend/web/";
+$frontURL = "http://192.168.1.7/juno-jack/frontend/web/";
 
 Yii::setAlias('frontend_url', $frontURL);
 Yii::setAlias('thumbnail_url', $frontURL."uploads/thumbnails");

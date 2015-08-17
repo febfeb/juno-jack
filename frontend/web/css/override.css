@@ -1,0 +1,47 @@
+.header-wrapper .nav-overflow {
+    background-color: #ca1515 !important;
+}
+
+nav>ul>li>a {
+    color: #fff !important;
+}
+
+nav>ul>li>.fa {
+    color: #ffd5d5 !important;
+}
+
+/*Menu nggantung*/
+.product-column-entry .description {
+    margin: 0 17px !important;
+}
+
+.submenu .product-column-entry .submenu-list-title {
+    margin-left: 17px !important;
+}
+
+nav .full-width .submenu {
+    padding: 0px !important;
+}
+
+.fixed-header-visible {
+    margin-bottom: 20px !important;
+}
+
+/*Cart*/
+.wishlist-header .title-1 {
+    margin-left: 220px !important;
+}
+
+.traditional-cart-entry .image {
+    width: 200px !important;
+}
+
+.traditional-cart-entry .content {
+    margin-left: 220px !important;
+}
+
+/*Sidebar*/
+.kategori_list {
+    text-decoration: underline;
+    font-weight: bold;
+}
