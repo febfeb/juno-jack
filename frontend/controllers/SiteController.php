@@ -1,25 +1,24 @@
 <?php
 namespace frontend\controllers;
 
-use Yii;
-
-use yii\data\ActiveDataProvider;
+use backend\models\Pelanggan;
+use backend\models\Pinjaman;
+use backend\models\Simpanan;
+use common\components\Tanggal;
+use common\models\Konfirmasi;
 use common\models\LoginForm;
-use frontend\models\Pengunjung;
+use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
+use frontend\models\Pengunjung;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\ContactForm;
-use backend\models\Berita;
-use backend\models\Simpanan;
-use backend\models\Pinjaman;
-use backend\models\Pelanggan;
-
+use Yii;
 use yii\base\InvalidParamException;
+use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
  * Site controller
@@ -275,9 +274,27 @@ class SiteController extends Controller
         Yii::$app->session["cart"] = $carts;
     }
 
-    public function actionProfilKemitraan()
+    public function actionKonfirmasi()
     {
-        return $this->render('profil-kemitraan');
+        if(isset($_POST["_csrf"])){
+            $konf = new Konfirmasi();
+            $konf->no_order = $_POST["no_order"];
+            $konf->bank_pengirim = $_POST["bank_pengirim"];
+            $konf->bank_tujuan = $_POST["bank_tujuan"];
+            $konf->metode_transfer = $_POST["metode_transfer"];
+            $konf->nama_pengirim = $_POST["nama_pengirim"];
+            $konf->no_rekening_pengirim = $_POST["no_rekening_pengirim"];
+            $konf->tanggal_transfer = Tanggal::reverse($_POST["tanggal_transfer"]);
+            $konf->nominal_transfer = $_POST["nominal_transfer"];
+            $konf->catatan = $_POST["catatan"];
+            if($konf->save()){
+                Yii::$app->session->setFlash("success", "Konfirmasi Anda sudah kami terima, mohon tunggu untuk validasi data oleh tim kami. Terima Kasih");
+            }else{
+                Yii::$app->session->setFlash("danger", "Konfirmasi Anda tidak dapat kami proses.");
+            }
+        }
+        
+        return $this->render('konfirmasi');
     }
 
     public function actionProfilKomitmen()

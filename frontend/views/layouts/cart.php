@@ -42,7 +42,7 @@ $total = 0;
                 <div class="clear"></div>
             </div>
             <div class="column">
-                <?= Html::a('<i class="fa fa-check"></i> Checkout', ["site/checkout"], ["class"=>"button style-4"]); ?>
+                <?= Html::a('<i class="fa fa-check"></i> Checkout', ["member/checkout"], ["class"=>"button style-4"]); ?>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>

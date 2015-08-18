@@ -49,6 +49,7 @@ use yii\widgets\Breadcrumbs;
                                 echo Html::a('<i class="fa fa-lock"></i> <span>Keluar</span>', ["member/logout"], ["class"=>"header-functionality-entry"]);
                             }
                             echo Html::a('<i class="fa fa-shopping-cart"></i> <span>Keranjang Belanja</span>', ["site/cart"], ["class"=>"header-functionality-entry open-cart-popup"]);
+                            echo Html::a('<i class="fa fa-check"></i> <span>Konfirmasi</span>', ["site/konfirmasi"], ["class"=>"header-functionality-entry"]);
                             ?>
                         </div>
                     </div>

@@ -144,6 +144,8 @@ if (Yii::$app->user->isGuest) {
                 ['label' => 'Halaman', 'url' => ['halaman/index']],
             ]
         ],
+        ['label' => '<i class="fa fa-file-text-o"></i> <span>Pemesanan</span>', 'url' => ['pemesanan/index']],
+        /*
         ['label' => '<i class="fa fa-user"></i> <span>Pembelian</span>',
             'items' => [
                 ['label' => 'Pembelian', 'url' => ['pembelian/index']],
@@ -157,6 +159,7 @@ if (Yii::$app->user->isGuest) {
         ['label' => '<i class="fa fa-user"></i> <span>Menu</span>',
             'items' => $items,
         ],
+         */
     ];
 }
 
