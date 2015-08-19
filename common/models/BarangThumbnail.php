@@ -16,6 +16,7 @@ use Yii;
 class BarangThumbnail extends \yii\db\ActiveRecord
 {
     public $gambar;
+    public $warna;
     
     /**
      * @inheritdoc

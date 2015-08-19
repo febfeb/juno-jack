@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use kartik\widgets\FileInput;
@@ -31,25 +32,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>Kategori</th>
                 <td><?= $firstBarang->kategori->nama ?></td>
             </tr>
-            <tr>
-                <th>Harga Beli</th>
-                <td><?= $firstBarang->harga_beli ?></td>
-            </tr>
-            <tr>
-                <th>Harga Normal</th>
-                <td><?= $firstBarang->harga_normal ?></td>
-            </tr>
-            <tr>
-                <th>Harga Promo</th>
-                <td><?= $firstBarang->harga_promo ?></td>
-            </tr>
         </table>
 
         <ul class="nav nav-tabs">
             <?php
             $i = 1;
             foreach ($barangs as $barang) {
-                if ($i==1) $class='class="active"'; else $class=''; $i++;
+                //if ($i==1) $class='class="active"'; else $class=''; $i++;
+                if (Yii::$app->request->get('warna') != '') {
+                    if (Yii::$app->request->get('warna')==$barang->barangWarna->nama) $class='class="active"'; else $class='';
+                } else {
+                    if ($i==1) $class='class="active"'; else $class='';
+                }
+                $i++;
+
                 echo '<li '.$class.'><a data-toggle="tab" href="#'.Slug::slugify($barang->nama.'-'.$barang->barangWarna->nama).'"><span class="label" style="background: #'.$barang->barangWarna->rgb.';">&nbsp;</span> '.$barang->barangWarna->nama.'</a></li>';
             }
             ?>
@@ -60,7 +56,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php
                     $i=1;
                     foreach ($barangs as $barang) {
-                        if ($i==1) $class='in active'; else $class=''; $i++; ?>
+                        if (Yii::$app->request->get('warna') != '') {
+                            if (Yii::$app->request->get('warna')==$barang->barangWarna->nama) $class='in active'; else $class='';
+                        } else {
+                            if ($i==1) $class='in active'; else $class='';
+                        }
+                        $i++;
+                        ?>
 
                         <div id="<?= Slug::slugify($barang->nama.'-'.$barang->barangWarna->nama) ?>" class="tab-pane fade <?= $class ?>">
 
@@ -92,11 +94,28 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <?php
                                     $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data']]);
+                                    echo $form->field($newThumbnails, 'warna')->hiddenInput(['value' => $barang->barangWarna->nama])->label(false);
                                     echo $form->field($newThumbnails, 'barang_id')->hiddenInput(['value' => $barang->id])->label(false);
-                                    echo $form->field($newThumbnails, 'gambar')->widget(FileInput::classname(), ['options' => ['accept' => 'image/*', 'id' => $barang->id]]);
+                                    //echo $form->field($newThumbnails, 'gambar[]')->widget(FileInput::classname(), [
+                                    echo FileInput::widget([
+                                        'name' => 'gambar[]',
+                                        'options' => [
+                                            'multiple' => true, 
+                                            'accept' => 'image/*', 
+                                            'class' => 'file-gambar'
+                                        ],
+                                        'pluginOptions' => [
+                                            'uploadUrl' => Url::to(['barang-thumbnails/create']), 
+                                            'uploadExtraData' => [
+                                                'warna' => $barang->barangWarna->nama,
+                                                'barang_id' => $barang->id,
+                                            ], 
+                                            'maxFileCount' => 5
+                                        ]]);
+
                                     ActiveForm::end();
                                     ?>
                                 </div>
@@ -109,6 +128,21 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .progress {
+        height: 20px;
+    }
+</style>
+
+<?php
+$this->registerJs('
+    $(".file-gambar").on("filebatchuploadcomplete", function(event, files, extra) {
+        console.log("File batch upload complete");
+        window.location.reload();
+    });
+');
+?>
 
                             <!--
                             <div class="uploader"></div>

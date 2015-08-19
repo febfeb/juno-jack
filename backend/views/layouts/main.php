@@ -145,6 +145,9 @@ if (Yii::$app->user->isGuest) {
             ]
         ],
         ['label' => '<i class="fa fa-file-text-o"></i> <span>Pemesanan</span>', 'url' => ['pemesanan/index']],
+        ['label' => '<i class="fa fa-user"></i> <span>Menu</span>',
+            'items' => $items,
+        ],
         /*
         ['label' => '<i class="fa fa-user"></i> <span>Pembelian</span>',
             'items' => [
@@ -155,9 +158,6 @@ if (Yii::$app->user->isGuest) {
             'items' => [
                 ['label' => 'Penjualan', 'url' => ['penjualan/index']],
             ]
-        ],
-        ['label' => '<i class="fa fa-user"></i> <span>Menu</span>',
-            'items' => $items,
         ],
          */
     ];

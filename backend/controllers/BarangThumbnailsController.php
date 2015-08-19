@@ -34,7 +34,7 @@ class BarangThumbnailsController extends Controller
      * Lists all BarangThumbnail models.
      * @return mixed
      */
-    public function actionIndex($klp)
+    public function actionIndex($klp, $warna = null)
     {
         /*
         $dataProvider = new ActiveDataProvider([
@@ -45,6 +45,7 @@ class BarangThumbnailsController extends Controller
         //$thumbnails = BarangThumbnail::find()->where(['barang_id' => $id])->all();
 
         $model = new BarangThumbnail();
+        /*
         if ($model->load(Yii::$app->request->post())) {
             $gambar = UploadedFile::getInstance($model, 'gambar');
             if (isset($gambar)) {
@@ -56,11 +57,13 @@ class BarangThumbnailsController extends Controller
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Gambar berhasil disimpan');
+                return $this->redirect(['index', 'klp' => $model->barang->kelompok, 'warna' => $model->barang->barangWarna->nama]);
             } else {
                 Yii::$app->session->setFlash('danger', 'Gambar gagal disimpan. '.var_dump($model->getErrors()));
+                return $this->redirect(['index', 'klp' => $model->barang->kelompok]);
             }
-            return $this->redirect(['index', 'klp' => $model->barang->kelompok]);
         }
+        */
 
         return $this->render('index', [
             'firstBarang' => $barangs[0],
@@ -106,7 +109,7 @@ class BarangThumbnailsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id)
+    public function actionOldCreate($id)
     {
         $barang = Barang::findOne($id);
 
@@ -137,6 +140,51 @@ class BarangThumbnailsController extends Controller
         }
     }
 
+    public function actionCreate() {
+        if (empty($_FILES['gambar'])) {
+            echo json_encode(['error' => 'No files found for upload.']); // You can add any exception here
+            return;
+        }
+
+        $gambars = $_FILES['gambar']; // ambil gambar[]. ingat, nama file harus array biar bis multiple
+        $success = null;
+        $filepath = []; // Path to store file, it must be array for multiple file upload
+        $paths = [];
+        $filenames = $gambars['name'];
+        for ($i = 0; $i < count($filenames); $i++) {
+            $ext = explode(".", basename($filenames[$i]));
+            $url = Yii::$app->security->generateRandomString().'.'.$ext[1];
+            $target = Yii::getAlias("@thumbnail_upload_path/").$url;
+            if (move_uploaded_file($gambars['tmp_name'][$i], $target)) {
+                $success = true;
+                $paths[] = $target;
+            } else {
+                $success = false;
+                break;
+            }
+
+            // Insert into database
+            $thumbnail = new BarangThumbnail();
+            $thumbnail->barang_id = Yii::$app->request->post('barang_id');
+            $thumbnail->url = $url;
+            $thumbnail->save();
+        }
+
+        if ($success === true) {
+            $output = json_encode(['error' => 'File uploaded.']);
+        } elseif ($success === false) {
+            $output = json_encode(['error' => 'Error while upload image']);
+            foreach($paths as $file) {
+                unlink($file);
+            }
+        } else {
+            $output = json_encode(['error' => 'No files were processed']);
+        }
+
+        echo $output;
+        return;
+    }
+
     /**
      * Deletes an existing BarangThumbnail model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -151,7 +199,7 @@ class BarangThumbnailsController extends Controller
 
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index', 'klp' => $klp]);
+        return $this->redirect(['index', 'klp' => $klp, 'warna' => $thumbnail->barang->barangWarna->nama]);
     }
 
     /**
